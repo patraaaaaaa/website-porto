@@ -178,6 +178,7 @@ export default function App() {
         <ParallaxSection 
           id="portfolio" 
           className="container mx-auto px-6 py-24"
+          disable3D={true}
         >
           <div className="mb-16 md:text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 animate-glow-slow">Karya Terbaik</h2>
@@ -207,7 +208,19 @@ export default function App() {
           </div>
 
           {/* Tab Content */}
-          <div className="max-w-5xl mx-auto min-h-[500px]">
+          <div className="max-w-5xl mx-auto relative">
+            {/* Top Gradient Shadow */}
+            <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-neutral-950 to-transparent z-10 pointer-events-none"></div>
+            
+            {/* Bottom Gradient Shadow */}
+            <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-neutral-950 to-transparent z-10 pointer-events-none"></div>
+
+            <div className="max-h-[80vh] overflow-y-auto pr-2 pb-8 pt-4 scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+              <style>{`
+                .scrollbar-hide::-webkit-scrollbar {
+                  display: none;
+                }
+              `}</style>
             
             {/* KATEGORI 1: INSTAGRAM FEED */}
             {activeTab === 'feed' && (
@@ -247,6 +260,186 @@ export default function App() {
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
                     <button 
                       onClick={() => setSelectedImage("https://github.com/user-attachments/assets/04f1beb8-f0ab-492f-8aa3-37dfa9bd5f2e")}
+                      className="text-white font-medium border border-white/30 px-6 py-2 rounded-full backdrop-blur-sm hover:bg-white/10 transition-colors"
+                    >
+                      Lihat Detail
+                    </button>
+                  </div>
+                </motion.div>
+                {/* Item Feed 4 */}
+                <motion.div variants={itemVariants} className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                  <img src="https://github.com/user-attachments/assets/1278588d-d430-4c95-b129-7b737ea8c9e6" alt="Instagram Feed 4" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
+                    <button 
+                      onClick={() => setSelectedImage("https://github.com/user-attachments/assets/1278588d-d430-4c95-b129-7b737ea8c9e6")}
+                      className="text-white font-medium border border-white/30 px-6 py-2 rounded-full backdrop-blur-sm hover:bg-white/10 transition-colors"
+                    >
+                      Lihat Detail
+                    </button>
+                  </div>
+                </motion.div>
+                {/* Item Feed 5 */}
+                <motion.div variants={itemVariants} className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                  <img src="https://github.com/user-attachments/assets/547151e5-9d29-4b59-8454-92cd12a53804" alt="Instagram Feed 5" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
+                    <button 
+                      onClick={() => setSelectedImage("https://github.com/user-attachments/assets/547151e5-9d29-4b59-8454-92cd12a53804")}
+                      className="text-white font-medium border border-white/30 px-6 py-2 rounded-full backdrop-blur-sm hover:bg-white/10 transition-colors"
+                    >
+                      Lihat Detail
+                    </button>
+                  </div>
+                </motion.div>
+                {/* Item Feed 6 */}
+                <motion.div variants={itemVariants} className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                  <img src="https://github.com/user-attachments/assets/b78232c9-cf47-4d65-91de-518d08c51907" alt="Instagram Feed 6" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
+                    <button 
+                      onClick={() => setSelectedImage("https://github.com/user-attachments/assets/b78232c9-cf47-4d65-91de-518d08c51907")}
+                      className="text-white font-medium border border-white/30 px-6 py-2 rounded-full backdrop-blur-sm hover:bg-white/10 transition-colors"
+                    >
+                      Lihat Detail
+                    </button>
+                  </div>
+                </motion.div>
+                {/* Item Feed 7 */}
+                <motion.div variants={itemVariants} className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                  <img src="https://github.com/user-attachments/assets/55f0c320-8d1a-45fc-87b8-b89393404f13" alt="Instagram Feed 7" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
+                    <button 
+                      onClick={() => setSelectedImage("https://github.com/user-attachments/assets/55f0c320-8d1a-45fc-87b8-b89393404f13")}
+                      className="text-white font-medium border border-white/30 px-6 py-2 rounded-full backdrop-blur-sm hover:bg-white/10 transition-colors"
+                    >
+                      Lihat Detail
+                    </button>
+                  </div>
+                </motion.div>
+                {/* Item Feed 8 */}
+                <motion.div variants={itemVariants} className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                  <img src="https://github.com/user-attachments/assets/44439303-372b-42fe-b7e0-ef860d4943e6" alt="Instagram Feed 8" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
+                    <button 
+                      onClick={() => setSelectedImage("https://github.com/user-attachments/assets/44439303-372b-42fe-b7e0-ef860d4943e6")}
+                      className="text-white font-medium border border-white/30 px-6 py-2 rounded-full backdrop-blur-sm hover:bg-white/10 transition-colors"
+                    >
+                      Lihat Detail
+                    </button>
+                  </div>
+                </motion.div>
+                {/* Item Feed 9 */}
+                <motion.div variants={itemVariants} className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                  <img src="https://github.com/user-attachments/assets/6f506d73-1cfb-4e9f-a5e2-bfda95293b15" alt="Instagram Feed 9" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
+                    <button 
+                      onClick={() => setSelectedImage("https://github.com/user-attachments/assets/6f506d73-1cfb-4e9f-a5e2-bfda95293b15")}
+                      className="text-white font-medium border border-white/30 px-6 py-2 rounded-full backdrop-blur-sm hover:bg-white/10 transition-colors"
+                    >
+                      Lihat Detail
+                    </button>
+                  </div>
+                </motion.div>
+                {/* Item Feed 10 */}
+                <motion.div variants={itemVariants} className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                  <img src="https://github.com/user-attachments/assets/eba64013-c88b-4478-a2fd-5a48d238358e" alt="Instagram Feed 10" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
+                    <button 
+                      onClick={() => setSelectedImage("https://github.com/user-attachments/assets/eba64013-c88b-4478-a2fd-5a48d238358e")}
+                      className="text-white font-medium border border-white/30 px-6 py-2 rounded-full backdrop-blur-sm hover:bg-white/10 transition-colors"
+                    >
+                      Lihat Detail
+                    </button>
+                  </div>
+                </motion.div>
+                {/* Item Feed 11 */}
+                <motion.div variants={itemVariants} className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                  <img src="https://github.com/user-attachments/assets/3232cf91-74a7-42cf-aaeb-4462d055291b" alt="Instagram Feed 11" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
+                    <button 
+                      onClick={() => setSelectedImage("https://github.com/user-attachments/assets/3232cf91-74a7-42cf-aaeb-4462d055291b")}
+                      className="text-white font-medium border border-white/30 px-6 py-2 rounded-full backdrop-blur-sm hover:bg-white/10 transition-colors"
+                    >
+                      Lihat Detail
+                    </button>
+                  </div>
+                </motion.div>
+                {/* Item Feed 12 */}
+                <motion.div variants={itemVariants} className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                  <img src="https://github.com/user-attachments/assets/38d92df9-d79c-48af-995d-2c2b0d98c0e3" alt="Instagram Feed 12" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
+                    <button 
+                      onClick={() => setSelectedImage("https://github.com/user-attachments/assets/38d92df9-d79c-48af-995d-2c2b0d98c0e3")}
+                      className="text-white font-medium border border-white/30 px-6 py-2 rounded-full backdrop-blur-sm hover:bg-white/10 transition-colors"
+                    >
+                      Lihat Detail
+                    </button>
+                  </div>
+                </motion.div>
+                {/* Item Feed 13 */}
+                <motion.div variants={itemVariants} className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                  <img src="https://github.com/user-attachments/assets/7c367776-8c50-46db-af36-84b6fa037042" alt="Instagram Feed 13" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
+                    <button 
+                      onClick={() => setSelectedImage("https://github.com/user-attachments/assets/7c367776-8c50-46db-af36-84b6fa037042")}
+                      className="text-white font-medium border border-white/30 px-6 py-2 rounded-full backdrop-blur-sm hover:bg-white/10 transition-colors"
+                    >
+                      Lihat Detail
+                    </button>
+                  </div>
+                </motion.div>
+                {/* Item Feed 14 */}
+                <motion.div variants={itemVariants} className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                  <img src="https://github.com/user-attachments/assets/a66436d3-193e-4dbf-86f1-860daf356de9" alt="Instagram Feed 14" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
+                    <button 
+                      onClick={() => setSelectedImage("https://github.com/user-attachments/assets/a66436d3-193e-4dbf-86f1-860daf356de9")}
+                      className="text-white font-medium border border-white/30 px-6 py-2 rounded-full backdrop-blur-sm hover:bg-white/10 transition-colors"
+                    >
+                      Lihat Detail
+                    </button>
+                  </div>
+                </motion.div>
+                {/* Item Feed 15 */}
+                <motion.div variants={itemVariants} className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                  <img src="https://github.com/user-attachments/assets/6e00867f-7b6a-4817-abd6-10cfbec53dea" alt="Instagram Feed 15" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
+                    <button 
+                      onClick={() => setSelectedImage("https://github.com/user-attachments/assets/6e00867f-7b6a-4817-abd6-10cfbec53dea")}
+                      className="text-white font-medium border border-white/30 px-6 py-2 rounded-full backdrop-blur-sm hover:bg-white/10 transition-colors"
+                    >
+                      Lihat Detail
+                    </button>
+                  </div>
+                </motion.div>
+                {/* Item Feed 16 */}
+                <motion.div variants={itemVariants} className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                  <img src="https://github.com/user-attachments/assets/3ccaa8a9-c051-4d6a-98e7-74e7a30c1aae" alt="Instagram Feed 16" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
+                    <button 
+                      onClick={() => setSelectedImage("https://github.com/user-attachments/assets/3ccaa8a9-c051-4d6a-98e7-74e7a30c1aae")}
+                      className="text-white font-medium border border-white/30 px-6 py-2 rounded-full backdrop-blur-sm hover:bg-white/10 transition-colors"
+                    >
+                      Lihat Detail
+                    </button>
+                  </div>
+                </motion.div>
+                {/* Item Feed 17 */}
+                <motion.div variants={itemVariants} className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                  <img src="https://github.com/user-attachments/assets/858ad571-e412-476e-943a-fe0806d250a5" alt="Instagram Feed 17" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
+                    <button 
+                      onClick={() => setSelectedImage("https://github.com/user-attachments/assets/858ad571-e412-476e-943a-fe0806d250a5")}
+                      className="text-white font-medium border border-white/30 px-6 py-2 rounded-full backdrop-blur-sm hover:bg-white/10 transition-colors"
+                    >
+                      Lihat Detail
+                    </button>
+                  </div>
+                </motion.div>
+                {/* Item Feed 18 */}
+                <motion.div variants={itemVariants} className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                  <img src="https://github.com/user-attachments/assets/eda523b3-17e1-4cd8-9d1e-3efc9c1b98cb" alt="Instagram Feed 18" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
+                    <button 
+                      onClick={() => setSelectedImage("https://github.com/user-attachments/assets/eda523b3-17e1-4cd8-9d1e-3efc9c1b98cb")}
                       className="text-white font-medium border border-white/30 px-6 py-2 rounded-full backdrop-blur-sm hover:bg-white/10 transition-colors"
                     >
                       Lihat Detail
@@ -327,6 +520,7 @@ export default function App() {
                 </motion.div>
               </motion.div>
             )}
+            </div>
           </div>
         </ParallaxSection>
 
