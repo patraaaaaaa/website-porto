@@ -1,8 +1,78 @@
 import { Play, Mail, Linkedin, Instagram, ArrowRight } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+
+const ParallaxSection = ({ children, id, className, isHero = false }: any) => {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: isHero ? ["start start", "end start"] : ["start end", "end start"]
+  });
+
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
+  const y = useTransform(
+    smoothProgress, 
+    isHero ? [0, 1] : [0, 0.5, 1], 
+    isHero ? [0, 200] : [150, 0, -150]
+  );
+  
+  const scale = useTransform(
+    smoothProgress, 
+    isHero ? [0, 1] : [0, 0.5, 1], 
+    isHero ? [1, 0.8] : [0.8, 1, 0.8]
+  );
+  
+  const rotateX = useTransform(
+    smoothProgress, 
+    isHero ? [0, 1] : [0, 0.5, 1], 
+    isHero ? [0, 15] : [25, 0, -25]
+  );
+  
+  const opacity = useTransform(
+    smoothProgress, 
+    isHero ? [0, 0.8] : [0, 0.2, 0.8, 1], 
+    isHero ? [1, 0] : [0, 1, 1, 0]
+  );
+
+  return (
+    <motion.section
+      id={id}
+      ref={ref}
+      style={{
+        y,
+        scale,
+        rotateX,
+        opacity,
+        transformStyle: "preserve-3d"
+      }}
+      className={className}
+    >
+      {children}
+    </motion.section>
+  );
+};
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('feed');
+
+  // Animation variants for staggered grid items
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.15 }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 50, scale: 0.95 },
+    visible: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", stiffness: 100, damping: 15 } }
+  };
 
   return (
     <div className="min-h-screen bg-neutral-950 text-neutral-200 font-sans selection:bg-neutral-800">
@@ -17,11 +87,14 @@ export default function App() {
         </nav>
       </header>
 
-      <main>
+      <main style={{ perspective: "1200px" }}>
         {/* HERO SECTION */}
-        <section className="container mx-auto px-6 py-24 md:py-32 flex flex-col items-center text-center">
+        <ParallaxSection 
+          isHero={true}
+          className="container mx-auto px-6 py-24 md:py-32 flex flex-col items-center text-center"
+        >
           {/* Headline Utama dengan Animasi Glow */}
-          <h1 className="text-6xl md:text-8xl lg:text-[10rem] font-bold tracking-tight text-white max-w-5xl leading-tight mb-10 flex justify-center gap-x-1 md:gap-x-2 whitespace-nowrap">
+          <h1 className="text-4xl sm:text-6xl md:text-8xl lg:text-[10rem] font-bold tracking-tight text-white max-w-5xl leading-tight mb-10 flex justify-center gap-x-1 md:gap-x-2 whitespace-nowrap">
             {"PORTOFOLIO".split("").map((char, index) => (
               <span key={index} className="animate-glow" style={{ animationDelay: `${index * 0.15}s` }}>
                 {char}
@@ -32,15 +105,18 @@ export default function App() {
           {/* Tombol CTA dengan efek hover menyala (glow) */}
           <a 
             href="#portfolio"
-            className="group inline-flex items-center gap-2 bg-white text-black px-8 py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.4)]"
+            className="group inline-flex items-center gap-2 bg-white text-black px-6 py-3 md:px-8 md:py-4 rounded-full font-semibold text-sm md:text-base transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.4)]"
           >
             Lihat Karya Saya
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 transition-transform" />
           </a>
-        </section>
+        </ParallaxSection>
 
         {/* ABOUT ME SECTION */}
-        <section id="about" className="container mx-auto px-6 py-24">
+        <ParallaxSection 
+          id="about" 
+          className="container mx-auto px-6 py-24"
+        >
           <div className="bg-neutral-900 rounded-[3rem] p-8 md:p-16 flex flex-col md:flex-row items-center gap-12 transition-all duration-500 hover:shadow-[0_10px_40px_rgba(255,255,255,0.03)]">
             {/* Foto Profil */}
             <div className="w-full md:w-2/5 flex justify-center">
@@ -74,10 +150,13 @@ export default function App() {
               </div>
             </div>
           </div>
-        </section>
+        </ParallaxSection>
 
         {/* PORTFOLIO SECTION (SHOWCASE) */}
-        <section id="portfolio" className="container mx-auto px-6 py-24">
+        <ParallaxSection 
+          id="portfolio" 
+          className="container mx-auto px-6 py-24"
+        >
           <div className="mb-16 md:text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 animate-glow-slow">Karya Terbaik</h2>
             <p className="text-neutral-400 max-w-2xl mx-auto">Kurasi konten Instagram yang dirancang untuk interaksi maksimal.</p>
@@ -110,79 +189,97 @@ export default function App() {
             
             {/* KATEGORI 1: INSTAGRAM FEED */}
             {activeTab === 'feed' && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 animate-in fade-in zoom-in-95 duration-500">
+              <motion.div 
+                variants={containerVariants}
+                initial="hidden"
+                animate="visible"
+                className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
+              >
                 {/* Item Feed 1 */}
-                <div className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                <motion.div variants={itemVariants} className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
                   <img src="https://picsum.photos/seed/feed1/800/800" alt="Instagram Feed 1" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
                     <span className="text-white font-medium border border-white/30 px-6 py-2 rounded-full backdrop-blur-sm">Lihat Detail</span>
                   </div>
-                </div>
+                </motion.div>
                 {/* Item Feed 2 */}
-                <div className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                <motion.div variants={itemVariants} className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
                   <img src="https://picsum.photos/seed/feed2/800/800" alt="Instagram Feed 2" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
                     <span className="text-white font-medium border border-white/30 px-6 py-2 rounded-full backdrop-blur-sm">Lihat Detail</span>
                   </div>
-                </div>
+                </motion.div>
                 {/* Item Feed 3 */}
-                <div className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                <motion.div variants={itemVariants} className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
                   <img src="https://picsum.photos/seed/feed3/800/800" alt="Instagram Feed 3" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
                     <span className="text-white font-medium border border-white/30 px-6 py-2 rounded-full backdrop-blur-sm">Lihat Detail</span>
                   </div>
-                </div>
-              </div>
+                </motion.div>
+              </motion.div>
             )}
 
             {/* KATEGORI 2: INSTAGRAM STORY */}
             {activeTab === 'story' && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 animate-in fade-in zoom-in-95 duration-500">
+              <motion.div 
+                variants={containerVariants}
+                initial="hidden"
+                animate="visible"
+                className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6"
+              >
                 {/* Item Story 1 */}
-                <div className="relative aspect-[9/16] bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                <motion.div variants={itemVariants} className="relative aspect-[9/16] bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
                   <img src="https://picsum.photos/seed/story1/720/1280" alt="Instagram Story 1" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
                     <span className="text-white font-medium border border-white/30 px-6 py-2 rounded-full backdrop-blur-sm">Lihat Story</span>
                   </div>
-                </div>
+                </motion.div>
                 {/* Item Story 2 */}
-                <div className="relative aspect-[9/16] bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                <motion.div variants={itemVariants} className="relative aspect-[9/16] bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
                   <img src="https://picsum.photos/seed/story2/720/1280" alt="Instagram Story 2" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
                     <span className="text-white font-medium border border-white/30 px-6 py-2 rounded-full backdrop-blur-sm">Lihat Story</span>
                   </div>
-                </div>
-              </div>
+                </motion.div>
+              </motion.div>
             )}
 
             {/* KATEGORI 3: INSTAGRAM REELS */}
             {activeTab === 'reels' && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 animate-in fade-in zoom-in-95 duration-500">
+              <motion.div 
+                variants={containerVariants}
+                initial="hidden"
+                animate="visible"
+                className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6"
+              >
                 {/* Item Reels 1 */}
-                <div className="relative aspect-[9/16] bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                <motion.div variants={itemVariants} className="relative aspect-[9/16] bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
                   <img src="https://picsum.photos/seed/reels1/720/1280" alt="Instagram Reels 1" className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-500" referrerPolicy="no-referrer" />
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="w-16 h-16 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center group-hover:bg-white/30 transition-colors duration-300 group-hover:scale-110">
                       <Play className="w-8 h-8 text-white fill-white ml-1" />
                     </div>
                   </div>
-                </div>
+                </motion.div>
                 {/* Item Reels 2 */}
-                <div className="relative aspect-[9/16] bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                <motion.div variants={itemVariants} className="relative aspect-[9/16] bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
                   <img src="https://picsum.photos/seed/reels2/720/1280" alt="Instagram Reels 2" className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-500" referrerPolicy="no-referrer" />
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="w-16 h-16 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center group-hover:bg-white/30 transition-colors duration-300 group-hover:scale-110">
                       <Play className="w-8 h-8 text-white fill-white ml-1" />
                     </div>
                   </div>
-                </div>
-              </div>
+                </motion.div>
+              </motion.div>
             )}
           </div>
-        </section>
+        </ParallaxSection>
 
         {/* SERVICES / SKILLS SECTION (MARQUEE STYLE) */}
-        <section id="services" className="py-24 overflow-hidden bg-neutral-950">
+        <ParallaxSection 
+          id="services" 
+          className="py-24 overflow-hidden bg-neutral-950"
+        >
           <div className="mb-16 md:text-center container mx-auto px-6">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Keahlian & Layanan</h2>
             <p className="text-neutral-400 max-w-2xl mx-auto">Pendekatan komprehensif untuk mendominasi algoritma dan hati audiens.</p>
@@ -205,10 +302,13 @@ export default function App() {
               <span className="text-5xl md:text-6xl font-medium text-neutral-500">Photography</span>
             </div>
           </div>
-        </section>
+        </ParallaxSection>
 
         {/* CONTACT SECTION */}
-        <section id="contact" className="container mx-auto px-6 py-24 mb-12">
+        <ParallaxSection 
+          id="contact" 
+          className="container mx-auto px-6 py-24 mb-12"
+        >
           <div className="bg-neutral-900 rounded-[3rem] p-12 md:p-24 text-center relative overflow-hidden">
             {/* Efek cahaya dekoratif di background */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-white/5 blur-[100px] rounded-full pointer-events-none"></div>
@@ -250,7 +350,7 @@ export default function App() {
               </div>
             </div>
           </div>
-        </section>
+        </ParallaxSection>
       </main>
 
       {/* FOOTER */}
