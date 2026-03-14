@@ -2,7 +2,7 @@ import { Play, Mail, Linkedin, Instagram, ArrowRight, X } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
 import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'framer-motion';
 
-const ParallaxSection = ({ children, id, className, isHero = false }: any) => {
+const ParallaxSection = ({ children, id, className, isHero = false, disable3D = false }: any) => {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -44,11 +44,11 @@ const ParallaxSection = ({ children, id, className, isHero = false }: any) => {
       id={id}
       ref={ref}
       style={{
-        y,
-        scale,
-        rotateX,
-        opacity,
-        transformStyle: "preserve-3d"
+        y: disable3D ? 0 : y,
+        scale: disable3D ? 1 : scale,
+        rotateX: disable3D ? 0 : rotateX,
+        opacity: disable3D ? 1 : opacity,
+        transformStyle: disable3D ? "flat" : "preserve-3d"
       }}
       className={className}
     >
@@ -362,23 +362,24 @@ export default function App() {
         {/* CONTACT SECTION */}
         <ParallaxSection 
           id="contact" 
-          className="container mx-auto px-6 py-24 mb-12"
+          className="container mx-auto px-6 py-24 mb-12 relative z-20"
+          disable3D={true}
         >
           <div className="bg-neutral-900 rounded-[3rem] p-12 md:p-24 text-center relative overflow-hidden">
             {/* Efek cahaya dekoratif di background */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-white/5 blur-[100px] rounded-full pointer-events-none"></div>
             
-            <div className="relative z-10">
+            <div className="relative z-30">
               <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Mari Berkolaborasi</h2>
               <p className="text-lg text-neutral-400 mb-12 max-w-2xl mx-auto">
                 Siap untuk meningkatkan kehadiran brand Anda di media sosial? Mari diskusikan ide-ide hebat bersama.
               </p>
               
               {/* Tombol Kontak */}
-              <div className="flex flex-wrap justify-center gap-4">
+              <div className="flex flex-wrap justify-center gap-4 relative z-40">
                 <a 
                   href="mailto:fhadulbilqis@gmail.com" 
-                  className="group relative inline-flex items-center gap-2 px-8 py-4 rounded-full font-semibold transition-all duration-300 overflow-hidden"
+                  className="group relative inline-flex items-center gap-2 px-8 py-4 rounded-full font-semibold transition-all duration-300 overflow-hidden cursor-pointer pointer-events-auto"
                 >
                   <div className="absolute inset-0 rounded-full border border-white/50 animate-border-pulse group-hover:opacity-0 transition-opacity duration-300"></div>
                   <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -392,7 +393,7 @@ export default function App() {
                   href="https://www.linkedin.com/in/fadhilah-patrayasa-a987a3309/" 
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group relative inline-flex items-center gap-2 px-8 py-4 rounded-full font-semibold transition-all duration-300 overflow-hidden"
+                  className="group relative inline-flex items-center gap-2 px-8 py-4 rounded-full font-semibold transition-all duration-300 overflow-hidden cursor-pointer pointer-events-auto"
                 >
                   <div className="absolute inset-0 rounded-full border border-white/50 animate-border-pulse group-hover:opacity-0 transition-opacity duration-300"></div>
                   <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -406,7 +407,7 @@ export default function App() {
                   href="https://www.instagram.com/fadhilahptrys.__/" 
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group relative inline-flex items-center gap-2 px-8 py-4 rounded-full font-semibold transition-all duration-300 overflow-hidden"
+                  className="group relative inline-flex items-center gap-2 px-8 py-4 rounded-full font-semibold transition-all duration-300 overflow-hidden cursor-pointer pointer-events-auto"
                 >
                   <div className="absolute inset-0 rounded-full border border-white/50 animate-border-pulse group-hover:opacity-0 transition-opacity duration-300"></div>
                   <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
