@@ -1,6 +1,6 @@
-import { Play, Mail, Linkedin, Instagram, ArrowRight } from 'lucide-react';
-import { useState, useRef } from 'react';
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { Play, Mail, Linkedin, Instagram, ArrowRight, X } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
+import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'framer-motion';
 
 const ParallaxSection = ({ children, id, className, isHero = false }: any) => {
   const ref = useRef(null);
@@ -59,6 +59,19 @@ const ParallaxSection = ({ children, id, className, isHero = false }: any) => {
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('feed');
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  // Prevent scrolling when popup is open
+  useEffect(() => {
+    if (selectedImage) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [selectedImage]);
 
   // Animation variants for staggered grid items
   const containerVariants = {
@@ -105,10 +118,19 @@ export default function App() {
           {/* Tombol CTA dengan efek hover menyala (glow) */}
           <a 
             href="#portfolio"
-            className="group inline-flex items-center gap-2 bg-white text-black px-6 py-3 md:px-8 md:py-4 rounded-full font-semibold text-sm md:text-base transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.4)]"
+            className="group relative inline-flex items-center gap-2 px-6 py-3 md:px-8 md:py-4 rounded-full font-semibold text-sm md:text-base transition-all duration-300 overflow-hidden"
           >
-            Lihat Karya Saya
-            <ArrowRight className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 transition-transform" />
+            {/* Outline yang redup terang */}
+            <div className="absolute inset-0 rounded-full border border-white/50 animate-border-pulse group-hover:opacity-0 transition-opacity duration-300"></div>
+            
+            {/* Fill color yang muncul saat hover */}
+            <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            
+            {/* Bayangan biru berputar di belakang tombol saat hover */}
+            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-600 via-cyan-400 to-blue-800 blur-md animate-spin-slow opacity-0 group-hover:opacity-50 transition-opacity duration-500 -z-10"></div>
+
+            <span className="relative z-10 text-white group-hover:text-black transition-colors duration-300">Lihat Karya Saya</span>
+            <ArrowRight className="w-4 h-4 md:w-5 md:h-5 relative z-10 text-white group-hover:text-black group-hover:translate-x-1 transition-all duration-300" />
           </a>
         </ParallaxSection>
 
@@ -120,13 +142,13 @@ export default function App() {
           <div className="bg-neutral-900 rounded-[3rem] p-8 md:p-16 flex flex-col md:flex-row items-center gap-12 transition-all duration-500 hover:shadow-[0_10px_40px_rgba(255,255,255,0.03)]">
             {/* Foto Profil */}
             <div className="w-full md:w-2/5 flex justify-center">
-              <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full p-2 group">
-                {/* Animasi Bayangan Biru Berputar */}
-                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-600 via-cyan-400 to-blue-800 blur-xl animate-spin-slow opacity-70 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="relative w-64 md:w-80 aspect-[3/4] rounded-[2rem] p-1 group overflow-hidden bg-neutral-900">
+                {/* Animasi Bayangan Biru Berputar (Stroke) */}
+                <div className="absolute inset-[-100%] bg-[conic-gradient(from_90deg_at_50%_50%,#00000000_50%,#3b82f6_100%)] animate-[spin_4s_linear_infinite] opacity-70 group-hover:opacity-100 transition-opacity duration-500"></div>
                 {/* Kontainer Foto */}
-                <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-neutral-900 z-10 bg-neutral-900">
+                <div className="relative w-full h-full rounded-[calc(2rem-4px)] overflow-hidden z-10 bg-neutral-900">
                   {/* GANTI URL FOTO PROFIL DI SINI */}
-                  <img src="https://picsum.photos/seed/profile/800/800" alt="Foto Profil" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" referrerPolicy="no-referrer" />
+                  <img src="https://github.com/user-attachments/assets/d3f95128-beec-43d4-90ff-fb80474ade00" alt="Foto Profil" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" referrerPolicy="no-referrer" />
                 </div>
               </div>
             </div>
@@ -197,23 +219,38 @@ export default function App() {
               >
                 {/* Item Feed 1 */}
                 <motion.div variants={itemVariants} className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
-                  <img src="https://picsum.photos/seed/feed1/800/800" alt="Instagram Feed 1" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
+                  <img src="https://github.com/user-attachments/assets/11602d5f-1a9f-432c-a4d8-d16281e593ed" alt="Instagram Feed 1" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
-                    <span className="text-white font-medium border border-white/30 px-6 py-2 rounded-full backdrop-blur-sm">Lihat Detail</span>
+                    <button 
+                      onClick={() => setSelectedImage("https://github.com/user-attachments/assets/11602d5f-1a9f-432c-a4d8-d16281e593ed")}
+                      className="text-white font-medium border border-white/30 px-6 py-2 rounded-full backdrop-blur-sm hover:bg-white/10 transition-colors"
+                    >
+                      Lihat Detail
+                    </button>
                   </div>
                 </motion.div>
                 {/* Item Feed 2 */}
                 <motion.div variants={itemVariants} className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
-                  <img src="https://picsum.photos/seed/feed2/800/800" alt="Instagram Feed 2" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
+                  <img src="https://github.com/user-attachments/assets/eb64479a-2b44-4c04-bf5c-02ad69aec404" alt="Instagram Feed 2" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
-                    <span className="text-white font-medium border border-white/30 px-6 py-2 rounded-full backdrop-blur-sm">Lihat Detail</span>
+                    <button 
+                      onClick={() => setSelectedImage("https://github.com/user-attachments/assets/eb64479a-2b44-4c04-bf5c-02ad69aec404")}
+                      className="text-white font-medium border border-white/30 px-6 py-2 rounded-full backdrop-blur-sm hover:bg-white/10 transition-colors"
+                    >
+                      Lihat Detail
+                    </button>
                   </div>
                 </motion.div>
                 {/* Item Feed 3 */}
                 <motion.div variants={itemVariants} className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
-                  <img src="https://picsum.photos/seed/feed3/800/800" alt="Instagram Feed 3" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
+                  <img src="https://github.com/user-attachments/assets/04f1beb8-f0ab-492f-8aa3-37dfa9bd5f2e" alt="Instagram Feed 3" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
-                    <span className="text-white font-medium border border-white/30 px-6 py-2 rounded-full backdrop-blur-sm">Lihat Detail</span>
+                    <button 
+                      onClick={() => setSelectedImage("https://github.com/user-attachments/assets/04f1beb8-f0ab-492f-8aa3-37dfa9bd5f2e")}
+                      className="text-white font-medium border border-white/30 px-6 py-2 rounded-full backdrop-blur-sm hover:bg-white/10 transition-colors"
+                    >
+                      Lihat Detail
+                    </button>
                   </div>
                 </motion.div>
               </motion.div>
@@ -231,14 +268,24 @@ export default function App() {
                 <motion.div variants={itemVariants} className="relative aspect-[9/16] bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
                   <img src="https://picsum.photos/seed/story1/720/1280" alt="Instagram Story 1" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
-                    <span className="text-white font-medium border border-white/30 px-6 py-2 rounded-full backdrop-blur-sm">Lihat Story</span>
+                    <button 
+                      onClick={() => setSelectedImage("https://picsum.photos/seed/story1/720/1280")}
+                      className="text-white font-medium border border-white/30 px-6 py-2 rounded-full backdrop-blur-sm hover:bg-white/10 transition-colors"
+                    >
+                      Lihat Story
+                    </button>
                   </div>
                 </motion.div>
                 {/* Item Story 2 */}
                 <motion.div variants={itemVariants} className="relative aspect-[9/16] bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
                   <img src="https://picsum.photos/seed/story2/720/1280" alt="Instagram Story 2" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
-                    <span className="text-white font-medium border border-white/30 px-6 py-2 rounded-full backdrop-blur-sm">Lihat Story</span>
+                    <button 
+                      onClick={() => setSelectedImage("https://picsum.photos/seed/story2/720/1280")}
+                      className="text-white font-medium border border-white/30 px-6 py-2 rounded-full backdrop-blur-sm hover:bg-white/10 transition-colors"
+                    >
+                      Lihat Story
+                    </button>
                   </div>
                 </motion.div>
               </motion.div>
@@ -253,7 +300,11 @@ export default function App() {
                 className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6"
               >
                 {/* Item Reels 1 */}
-                <motion.div variants={itemVariants} className="relative aspect-[9/16] bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                <motion.div 
+                  variants={itemVariants} 
+                  className="relative aspect-[9/16] bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]"
+                  onClick={() => setSelectedImage("https://picsum.photos/seed/reels1/720/1280")}
+                >
                   <img src="https://picsum.photos/seed/reels1/720/1280" alt="Instagram Reels 1" className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-500" referrerPolicy="no-referrer" />
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="w-16 h-16 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center group-hover:bg-white/30 transition-colors duration-300 group-hover:scale-110">
@@ -262,7 +313,11 @@ export default function App() {
                   </div>
                 </motion.div>
                 {/* Item Reels 2 */}
-                <motion.div variants={itemVariants} className="relative aspect-[9/16] bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                <motion.div 
+                  variants={itemVariants} 
+                  className="relative aspect-[9/16] bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]"
+                  onClick={() => setSelectedImage("https://picsum.photos/seed/reels2/720/1280")}
+                >
                   <img src="https://picsum.photos/seed/reels2/720/1280" alt="Instagram Reels 2" className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-500" referrerPolicy="no-referrer" />
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="w-16 h-16 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center group-hover:bg-white/30 transition-colors duration-300 group-hover:scale-110">
@@ -321,31 +376,44 @@ export default function App() {
               
               {/* Tombol Kontak */}
               <div className="flex flex-wrap justify-center gap-4">
-                {/* GANTI EMAIL DI SINI */}
                 <a 
-                  href="mailto:hello@example.com" 
-                  className="flex items-center gap-2 bg-white text-black px-8 py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]"
+                  href="mailto:fhadulbilqis@gmail.com" 
+                  className="group relative inline-flex items-center gap-2 px-8 py-4 rounded-full font-semibold transition-all duration-300 overflow-hidden"
                 >
-                  <Mail className="w-5 h-5" />
-                  Kirim Email
+                  <div className="absolute inset-0 rounded-full border border-white/50 animate-border-pulse group-hover:opacity-0 transition-opacity duration-300"></div>
+                  <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-600 via-cyan-400 to-blue-800 blur-md animate-spin-slow opacity-0 group-hover:opacity-50 transition-opacity duration-500 -z-10"></div>
+                  
+                  <Mail className="w-5 h-5 relative z-10 text-white group-hover:text-black transition-colors duration-300" />
+                  <span className="relative z-10 text-white group-hover:text-black transition-colors duration-300">Kirim Email</span>
                 </a>
                 
-                {/* GANTI LINK LINKEDIN DI SINI */}
                 <a 
-                  href="#" 
-                  className="flex items-center gap-2 bg-neutral-800 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 hover:bg-neutral-700 hover:scale-105"
+                  href="https://www.linkedin.com/in/fadhilah-patrayasa-a987a3309/" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative inline-flex items-center gap-2 px-8 py-4 rounded-full font-semibold transition-all duration-300 overflow-hidden"
                 >
-                  <Linkedin className="w-5 h-5" />
-                  LinkedIn
+                  <div className="absolute inset-0 rounded-full border border-white/50 animate-border-pulse group-hover:opacity-0 transition-opacity duration-300"></div>
+                  <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-600 via-cyan-400 to-blue-800 blur-md animate-spin-slow opacity-0 group-hover:opacity-50 transition-opacity duration-500 -z-10"></div>
+                  
+                  <Linkedin className="w-5 h-5 relative z-10 text-white group-hover:text-black transition-colors duration-300" />
+                  <span className="relative z-10 text-white group-hover:text-black transition-colors duration-300">LinkedIn</span>
                 </a>
                 
-                {/* GANTI LINK INSTAGRAM DI SINI */}
                 <a 
-                  href="#" 
-                  className="flex items-center gap-2 bg-neutral-800 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 hover:bg-neutral-700 hover:scale-105"
+                  href="https://www.instagram.com/fadhilahptrys.__/" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative inline-flex items-center gap-2 px-8 py-4 rounded-full font-semibold transition-all duration-300 overflow-hidden"
                 >
-                  <Instagram className="w-5 h-5" />
-                  Instagram
+                  <div className="absolute inset-0 rounded-full border border-white/50 animate-border-pulse group-hover:opacity-0 transition-opacity duration-300"></div>
+                  <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-600 via-cyan-400 to-blue-800 blur-md animate-spin-slow opacity-0 group-hover:opacity-50 transition-opacity duration-500 -z-10"></div>
+                  
+                  <Instagram className="w-5 h-5 relative z-10 text-white group-hover:text-black transition-colors duration-300" />
+                  <span className="relative z-10 text-white group-hover:text-black transition-colors duration-300">Instagram</span>
                 </a>
               </div>
             </div>
@@ -357,6 +425,71 @@ export default function App() {
       <footer className="border-t border-neutral-900 py-8 text-center text-neutral-500 text-sm">
         <p>&copy; {new Date().getFullYear()} Social Media Specialist. All rights reserved.</p>
       </footer>
+
+      {/* IMAGE POPUP MODAL */}
+      <AnimatePresence>
+        {selectedImage && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-sm"
+            onClick={() => setSelectedImage(null)}
+          >
+            <motion.div 
+              initial={{ scale: 0.8, rotateX: 20, y: 50, opacity: 0 }}
+              animate={{ scale: 1, rotateX: 0, y: 0, opacity: 1 }}
+              exit={{ scale: 0.8, rotateX: -20, y: 50, opacity: 0 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="relative max-w-4xl w-full max-h-[90vh] bg-neutral-900 rounded-3xl overflow-hidden shadow-2xl"
+              style={{ transformStyle: "preserve-3d", perspective: "1000px" }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button 
+                onClick={() => setSelectedImage(null)}
+                className="absolute top-4 right-4 z-10 p-2 bg-black/50 hover:bg-black/80 text-white rounded-full backdrop-blur-md transition-colors"
+              >
+                <X className="w-6 h-6" />
+              </button>
+              
+              <div className="flex flex-col md:flex-row h-full max-h-[90vh]">
+                {/* Image Container */}
+                <div className="w-full md:w-3/5 bg-black flex items-center justify-center overflow-hidden">
+                  <img 
+                    src={selectedImage} 
+                    alt="Portfolio Detail" 
+                    className="w-full h-full object-contain max-h-[50vh] md:max-h-[90vh]"
+                    referrerPolicy="no-referrer"
+                  />
+                </div>
+                
+                {/* Description Container */}
+                <div className="w-full md:w-2/5 p-6 md:p-8 flex flex-col overflow-y-auto">
+                  <h3 className="text-2xl font-bold text-white mb-2">Detail Karya</h3>
+                  <p className="text-neutral-400 text-sm mb-6">Dipublikasikan pada {new Date().toLocaleDateString('id-ID', { month: 'long', year: 'numeric' })}</p>
+                  
+                  <div className="space-y-4 text-neutral-300">
+                    <p>
+                      Ini adalah deskripsi detail untuk karya portofolio yang dipilih. Konten ini dirancang khusus untuk memaksimalkan interaksi (engagement) dan menyampaikan pesan brand dengan cara yang visual dan menarik.
+                    </p>
+                    <p>
+                      <strong>Strategi:</strong> Menggunakan palet warna yang konsisten dengan identitas brand, dipadukan dengan copywriting yang memancing rasa ingin tahu audiens.
+                    </p>
+                    <div className="pt-4 mt-4 border-t border-neutral-800">
+                      <h4 className="text-white font-medium mb-2">Hasil (Metrics):</h4>
+                      <ul className="list-disc list-inside text-sm text-neutral-400 space-y-1">
+                        <li>Peningkatan Reach sebesar 45%</li>
+                        <li>Engagement Rate: 8.2%</li>
+                        <li>+120 Pengikut Baru</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
