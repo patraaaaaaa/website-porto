@@ -157,10 +157,10 @@ export default function App() {
             <div className="w-full md:w-3/5">
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Tentang Saya</h2>
               <p className="text-neutral-400 text-lg leading-relaxed mb-8">
-                Halo! Saya adalah seorang Social Media Specialist yang bersemangat dalam menceritakan kisah brand melalui visual yang memukau dan strategi konten yang cerdas. Dengan pengalaman dalam mengelola berbagai akun media sosial, saya memahami bagaimana mengubah audiens biasa menjadi komunitas yang loyal dan interaktif.
+                Mahasiswa Desain Grafis UNESA yang menggabungkan kepekaan artistik dengan pemikiran strategis. Memiliki portofolio yang terus berkembang di bidang branding, ilustrasi, fotografi, dan perancangan UI/UX menggunakan alat desain seperti Figma, Canva, dan Procreate. Berpengalaman dalam membedah case study nyata, seperti menyusun kampanye media sosial, merancang strategi photobooth komersial, hingga menganalisis nilai komunikasi visual kemasan. Memiliki antusiasme tinggi terhadap proses kreatif yang out-of-the-box dan berorientasi pada pemecahan masalah. Saat ini terbuka untuk peluang magang dan kolaborasi di industri kreatif.
               </p>
               
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="bg-neutral-950 p-5 rounded-2xl border border-neutral-800/50">
                   <span className="block text-sm text-neutral-500 mb-1">Nama</span>
                   <span className="text-white font-medium">Moh. Alif Fadhilah Patrayasa</span>
@@ -168,6 +168,17 @@ export default function App() {
                 <div className="bg-neutral-950 p-5 rounded-2xl border border-neutral-800/50">
                   <span className="block text-sm text-neutral-500 mb-1">Lokasi</span>
                   <span className="text-white font-medium">Surabaya, Indonesia</span>
+                </div>
+                <div className="bg-neutral-950 p-5 rounded-2xl border border-neutral-800/50 relative group overflow-hidden flex flex-col justify-center items-center cursor-pointer transition-all duration-300 hover:border-white/30">
+                  <span className="text-white font-bold text-2xl group-hover:opacity-0 transition-opacity duration-300">CV</span>
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/60 backdrop-blur-sm">
+                    <button 
+                      onClick={() => setSelectedImage("https://github.com/user-attachments/files/26001600/Moh.Alif.Fadhilah.Patrayasa-ATS.CV.pdf")}
+                      className="text-white font-medium border border-white/30 px-6 py-2 rounded-full hover:bg-white/10 transition-colors"
+                    >
+                      Lihat
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -197,7 +208,7 @@ export default function App() {
               onClick={() => setActiveTab('story')} 
               className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 ${activeTab === 'story' ? 'bg-white text-black shadow-[0_0_20px_rgba(255,255,255,0.3)] scale-105' : 'bg-neutral-900 text-neutral-400 hover:bg-neutral-800 hover:text-white animate-border-pulse'}`}
             >
-              Instagram Story
+              Illustration
             </button>
             <button 
               onClick={() => setActiveTab('reels')} 
@@ -280,10 +291,10 @@ export default function App() {
                 </motion.div>
                 {/* Item Feed 5 */}
                 <motion.div variants={itemVariants} className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
-                  <img src="https://github.com/user-attachments/assets/547151e5-9d29-4b59-8454-92cd12a53804" alt="Instagram Feed 5" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
+                  <img src="https://github.com/user-attachments/assets/f48a8c18-0a54-4d1e-89a8-12f24ebd69fe" alt="Instagram Feed 5" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
                     <button 
-                      onClick={() => setSelectedImage("https://github.com/user-attachments/assets/547151e5-9d29-4b59-8454-92cd12a53804")}
+                      onClick={() => setSelectedImage("https://github.com/user-attachments/assets/f48a8c18-0a54-4d1e-89a8-12f24ebd69fe")}
                       className="text-white font-medium border border-white/30 px-6 py-2 rounded-full backdrop-blur-sm hover:bg-white/10 transition-colors"
                     >
                       Lihat Detail
@@ -292,10 +303,10 @@ export default function App() {
                 </motion.div>
                 {/* Item Feed 6 */}
                 <motion.div variants={itemVariants} className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
-                  <img src="https://github.com/user-attachments/assets/b78232c9-cf47-4d65-91de-518d08c51907" alt="Instagram Feed 6" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
+                  <img src="https://github.com/user-attachments/assets/aa832a85-f3c2-4614-bc2d-81cb56b45842" alt="Instagram Feed 6" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
                     <button 
-                      onClick={() => setSelectedImage("https://github.com/user-attachments/assets/b78232c9-cf47-4d65-91de-518d08c51907")}
+                      onClick={() => setSelectedImage("https://github.com/user-attachments/assets/aa832a85-f3c2-4614-bc2d-81cb56b45842")}
                       className="text-white font-medium border border-white/30 px-6 py-2 rounded-full backdrop-blur-sm hover:bg-white/10 transition-colors"
                     >
                       Lihat Detail
@@ -648,14 +659,22 @@ export default function App() {
               </button>
               
               <div className="flex flex-col md:flex-row h-full max-h-[90vh]">
-                {/* Image Container */}
+                {/* Image or PDF Container */}
                 <div className="w-full md:w-3/5 bg-black flex items-center justify-center overflow-hidden">
-                  <img 
-                    src={selectedImage} 
-                    alt="Portfolio Detail" 
-                    className="w-full h-full object-contain max-h-[50vh] md:max-h-[90vh]"
-                    referrerPolicy="no-referrer"
-                  />
+                  {selectedImage.endsWith('.pdf') ? (
+                    <iframe 
+                      src={selectedImage} 
+                      className="w-full h-full min-h-[50vh] md:min-h-[90vh]"
+                      title="PDF Viewer"
+                    />
+                  ) : (
+                    <img 
+                      src={selectedImage} 
+                      alt="Portfolio Detail" 
+                      className="w-full h-full object-contain max-h-[50vh] md:max-h-[90vh]"
+                      referrerPolicy="no-referrer"
+                    />
+                  )}
                 </div>
                 
                 {/* Description Container */}
