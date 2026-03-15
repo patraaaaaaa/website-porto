@@ -1,4 +1,4 @@
-import { Play, Mail, Linkedin, Instagram, ArrowRight, X } from 'lucide-react';
+import { Play, Mail, Linkedin, Instagram, ArrowRight, X, Download } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
 import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'framer-motion';
 
@@ -169,8 +169,11 @@ export default function App() {
                   <span className="block text-sm text-neutral-500 mb-1">Lokasi</span>
                   <span className="text-white font-medium">Surabaya, Indonesia</span>
                 </div>
-                <div className="bg-neutral-950 p-5 rounded-2xl border border-neutral-800/50 relative group overflow-hidden flex flex-col justify-center items-center cursor-pointer transition-all duration-300 hover:border-white/30">
-                  <span className="text-white font-bold text-2xl group-hover:opacity-0 transition-opacity duration-300">CV</span>
+                <div className="bg-neutral-950 p-5 rounded-2xl border border-neutral-800/50 relative group overflow-hidden cursor-pointer transition-all duration-300 hover:border-white/30">
+                  <div className="group-hover:opacity-0 transition-opacity duration-300">
+                    <span className="block text-sm text-neutral-500 mb-1">ATS CV</span>
+                    <span className="text-white font-medium">View CV</span>
+                  </div>
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/60 backdrop-blur-sm">
                     <button 
                       onClick={() => setSelectedImage("https://github.com/user-attachments/files/26001600/Moh.Alif.Fadhilah.Patrayasa-ATS.CV.pdf")}
@@ -460,35 +463,35 @@ export default function App() {
               </motion.div>
             )}
 
-            {/* KATEGORI 2: INSTAGRAM STORY */}
+            {/* KATEGORI 2: ILLUSTRATION */}
             {activeTab === 'story' && (
               <motion.div 
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"
-                className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6"
+                className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
               >
-                {/* Item Story 1 */}
-                <motion.div variants={itemVariants} className="relative aspect-[9/16] bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
-                  <img src="https://picsum.photos/seed/story1/720/1280" alt="Instagram Story 1" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
+                {/* Item Illustration 1 */}
+                <motion.div variants={itemVariants} className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                  <img src="https://github.com/user-attachments/assets/2010d1a5-2047-47fd-a111-f28657bcce3e" alt="Illustration 1" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
                     <button 
-                      onClick={() => setSelectedImage("https://picsum.photos/seed/story1/720/1280")}
+                      onClick={() => setSelectedImage("https://github.com/user-attachments/assets/2010d1a5-2047-47fd-a111-f28657bcce3e")}
                       className="text-white font-medium border border-white/30 px-6 py-2 rounded-full backdrop-blur-sm hover:bg-white/10 transition-colors"
                     >
-                      Lihat Story
+                      Lihat Detail
                     </button>
                   </div>
                 </motion.div>
-                {/* Item Story 2 */}
-                <motion.div variants={itemVariants} className="relative aspect-[9/16] bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
-                  <img src="https://picsum.photos/seed/story2/720/1280" alt="Instagram Story 2" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
+                {/* Item Illustration 2 */}
+                <motion.div variants={itemVariants} className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                  <img src="https://picsum.photos/seed/story2/720/1280" alt="Illustration 2" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
                     <button 
                       onClick={() => setSelectedImage("https://picsum.photos/seed/story2/720/1280")}
                       className="text-white font-medium border border-white/30 px-6 py-2 rounded-full backdrop-blur-sm hover:bg-white/10 transition-colors"
                     >
-                      Lihat Story
+                      Lihat Detail
                     </button>
                   </div>
                 </motion.div>
@@ -663,7 +666,7 @@ export default function App() {
                 <div className="w-full md:w-3/5 bg-black flex items-center justify-center overflow-hidden">
                   {selectedImage.endsWith('.pdf') ? (
                     <iframe 
-                      src={selectedImage} 
+                      src={`https://docs.google.com/viewer?url=${encodeURIComponent(selectedImage)}&embedded=true`} 
                       className="w-full h-full min-h-[50vh] md:min-h-[90vh]"
                       title="PDF Viewer"
                     />
@@ -679,25 +682,54 @@ export default function App() {
                 
                 {/* Description Container */}
                 <div className="w-full md:w-2/5 p-6 md:p-8 flex flex-col overflow-y-auto">
-                  <h3 className="text-2xl font-bold text-white mb-2">Detail Karya</h3>
-                  <p className="text-neutral-400 text-sm mb-6">Dipublikasikan pada {new Date().toLocaleDateString('id-ID', { month: 'long', year: 'numeric' })}</p>
-                  
-                  <div className="space-y-4 text-neutral-300">
-                    <p>
-                      Ini adalah deskripsi detail untuk karya portofolio yang dipilih. Konten ini dirancang khusus untuk memaksimalkan interaksi (engagement) dan menyampaikan pesan brand dengan cara yang visual dan menarik.
-                    </p>
-                    <p>
-                      <strong>Strategi:</strong> Menggunakan palet warna yang konsisten dengan identitas brand, dipadukan dengan copywriting yang memancing rasa ingin tahu audiens.
-                    </p>
-                    <div className="pt-4 mt-4 border-t border-neutral-800">
-                      <h4 className="text-white font-medium mb-2">Hasil (Metrics):</h4>
-                      <ul className="list-disc list-inside text-sm text-neutral-400 space-y-1">
-                        <li>Peningkatan Reach sebesar 45%</li>
-                        <li>Engagement Rate: 8.2%</li>
-                        <li>+120 Pengikut Baru</li>
-                      </ul>
-                    </div>
-                  </div>
+                  {selectedImage.endsWith('.pdf') ? (
+                    <>
+                      <h3 className="text-2xl font-bold text-white mb-2">Curriculum Vitae</h3>
+                      <p className="text-neutral-400 text-sm mb-6">ATS Friendly CV</p>
+                      
+                      <div className="space-y-4 text-neutral-300 flex-grow">
+                        <p>
+                          Ini adalah pratinjau dari Curriculum Vitae (CV) saya yang dirancang khusus agar ramah terhadap sistem ATS (Applicant Tracking System).
+                        </p>
+                        <p>
+                          Silakan unduh file PDF aslinya untuk melihat detail lengkap pengalaman, pendidikan, dan keterampilan saya.
+                        </p>
+                      </div>
+                      
+                      <a 
+                        href={selectedImage}
+                        download
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-6 flex items-center justify-center gap-2 bg-white text-black px-6 py-3 rounded-full font-semibold hover:bg-neutral-200 transition-colors"
+                      >
+                        <Download className="w-5 h-5" />
+                        Unduh PDF
+                      </a>
+                    </>
+                  ) : (
+                    <>
+                      <h3 className="text-2xl font-bold text-white mb-2">Detail Karya</h3>
+                      <p className="text-neutral-400 text-sm mb-6">Dipublikasikan pada {new Date().toLocaleDateString('id-ID', { month: 'long', year: 'numeric' })}</p>
+                      
+                      <div className="space-y-4 text-neutral-300">
+                        <p>
+                          Ini adalah deskripsi detail untuk karya portofolio yang dipilih. Konten ini dirancang khusus untuk memaksimalkan interaksi (engagement) dan menyampaikan pesan brand dengan cara yang visual dan menarik.
+                        </p>
+                        <p>
+                          <strong>Strategi:</strong> Menggunakan palet warna yang konsisten dengan identitas brand, dipadukan dengan copywriting yang memancing rasa ingin tahu audiens.
+                        </p>
+                        <div className="pt-4 mt-4 border-t border-neutral-800">
+                          <h4 className="text-white font-medium mb-2">Hasil (Metrics):</h4>
+                          <ul className="list-disc list-inside text-sm text-neutral-400 space-y-1">
+                            <li>Peningkatan Reach sebesar 45%</li>
+                            <li>Engagement Rate: 8.2%</li>
+                            <li>+120 Pengikut Baru</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
             </motion.div>
