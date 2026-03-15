@@ -1,6 +1,8 @@
 import { Play, Mail, Linkedin, Instagram, ArrowRight, X, Download } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
 import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'framer-motion';
+import CustomCursor from './components/CustomCursor';
+import { MeshGradient } from "@paper-design/shaders-react";
 
 const ParallaxSection = ({ children, id, className, isHero = false, disable3D = false }: any) => {
   const ref = useRef(null);
@@ -60,6 +62,20 @@ const ParallaxSection = ({ children, id, className, isHero = false, disable3D = 
 export default function App() {
   const [activeTab, setActiveTab] = useState('feed');
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [dimensions, setDimensions] = useState({ width: 1920, height: 1080 });
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    const update = () =>
+      setDimensions({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
 
   // Prevent scrolling when popup is open
   useEffect(() => {
@@ -88,7 +104,8 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-neutral-200 font-sans selection:bg-neutral-800">
+    <div className="min-h-screen bg-neutral-950 text-neutral-200 font-sans selection:bg-neutral-800 overflow-hidden">
+      <CustomCursor />
       {/* HEADER / NAVIGASI */}
       <header className="container mx-auto px-6 py-8 flex justify-between items-center">
         <div className="text-xl font-bold tracking-tighter text-white">PatraaPorto</div>
@@ -104,10 +121,27 @@ export default function App() {
         {/* HERO SECTION */}
         <ParallaxSection 
           isHero={true}
-          className="container mx-auto px-6 py-24 md:py-32 flex flex-col items-center text-center"
+          className="container mx-auto px-6 py-24 md:py-32 flex flex-col items-center text-center relative"
         >
+          {/* Abstract Background Elements */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full pointer-events-none -z-10 opacity-60 overflow-hidden rounded-full blur-[60px] md:blur-[100px] max-w-4xl max-h-[600px]">
+            {mounted && (
+              <MeshGradient
+                width={dimensions.width}
+                height={dimensions.height}
+                colors={["#1e3a8a", "#0e7490", "#3730a3", "#172554", "#083344", "#312e81"]}
+                distortion={0.8}
+                swirl={0.6}
+                grainMixer={0}
+                grainOverlay={0}
+                speed={0.42}
+                offsetX={0.08}
+              />
+            )}
+          </div>
+
           {/* Headline Utama dengan Animasi Glow */}
-          <h1 className="text-4xl sm:text-6xl md:text-8xl lg:text-[10rem] font-bold tracking-tight text-white max-w-5xl leading-tight mb-10 flex justify-center gap-x-1 md:gap-x-2 whitespace-nowrap">
+          <h1 className="relative text-4xl sm:text-6xl md:text-8xl lg:text-[10rem] font-bold tracking-tight text-white max-w-5xl leading-tight mb-10 flex justify-center gap-x-1 md:gap-x-2 whitespace-nowrap">
             {"PORTOFOLIO".split("").map((char, index) => (
               <span key={index} className="animate-glow" style={{ animationDelay: `${index * 0.15}s` }}>
                 {char}
@@ -485,10 +519,22 @@ export default function App() {
                 </motion.div>
                 {/* Item Illustration 2 */}
                 <motion.div variants={itemVariants} className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
-                  <img src="https://picsum.photos/seed/story2/720/1280" alt="Illustration 2" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
+                  <img src="https://github.com/user-attachments/assets/fdfd2ddf-b4d0-4ee6-a077-41fd8caa2c93" alt="Illustration 2" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
                     <button 
-                      onClick={() => setSelectedImage("https://picsum.photos/seed/story2/720/1280")}
+                      onClick={() => setSelectedImage("https://github.com/user-attachments/assets/fdfd2ddf-b4d0-4ee6-a077-41fd8caa2c93")}
+                      className="text-white font-medium border border-white/30 px-6 py-2 rounded-full backdrop-blur-sm hover:bg-white/10 transition-colors"
+                    >
+                      Lihat Detail
+                    </button>
+                  </div>
+                </motion.div>
+                {/* Item Illustration 3 */}
+                <motion.div variants={itemVariants} className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                  <img src="https://github.com/user-attachments/assets/2503af51-159f-40af-b46d-4642dd2f6d52" alt="Illustration 3" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
+                    <button 
+                      onClick={() => setSelectedImage("https://github.com/user-attachments/assets/2503af51-159f-40af-b46d-4642dd2f6d52")}
                       className="text-white font-medium border border-white/30 px-6 py-2 rounded-full backdrop-blur-sm hover:bg-white/10 transition-colors"
                     >
                       Lihat Detail
@@ -573,7 +619,7 @@ export default function App() {
           className="container mx-auto px-6 py-24 mb-12 relative z-20"
           disable3D={true}
         >
-          <div className="bg-neutral-900 rounded-[3rem] p-12 md:p-24 text-center relative overflow-hidden">
+          <div className="bg-white/10 backdrop-blur-lg border border-white/20 shadow-2xl rounded-[3rem] p-12 md:p-24 text-center relative overflow-hidden">
             {/* Efek cahaya dekoratif di background */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-white/5 blur-[100px] rounded-full pointer-events-none"></div>
             
@@ -663,7 +709,7 @@ export default function App() {
               
               <div className="flex flex-col md:flex-row h-full max-h-[90vh]">
                 {/* Image or PDF Container */}
-                <div className="w-full md:w-3/5 bg-black flex items-center justify-center overflow-hidden">
+                <div className={`w-full ${selectedImage.endsWith('.pdf') ? 'md:w-3/5' : 'md:w-full'} bg-black flex items-center justify-center overflow-hidden`}>
                   {selectedImage.endsWith('.pdf') ? (
                     <iframe 
                       src={`https://docs.google.com/viewer?url=${encodeURIComponent(selectedImage)}&embedded=true`} 
@@ -680,57 +726,33 @@ export default function App() {
                   )}
                 </div>
                 
-                {/* Description Container */}
-                <div className="w-full md:w-2/5 p-6 md:p-8 flex flex-col overflow-y-auto">
-                  {selectedImage.endsWith('.pdf') ? (
-                    <>
-                      <h3 className="text-2xl font-bold text-white mb-2">Curriculum Vitae</h3>
-                      <p className="text-neutral-400 text-sm mb-6">ATS Friendly CV</p>
-                      
-                      <div className="space-y-4 text-neutral-300 flex-grow">
-                        <p>
-                          Ini adalah pratinjau dari Curriculum Vitae (CV) saya yang dirancang khusus agar ramah terhadap sistem ATS (Applicant Tracking System).
-                        </p>
-                        <p>
-                          Silakan unduh file PDF aslinya untuk melihat detail lengkap pengalaman, pendidikan, dan keterampilan saya.
-                        </p>
-                      </div>
-                      
-                      <a 
-                        href={selectedImage}
-                        download
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="mt-6 flex items-center justify-center gap-2 bg-white text-black px-6 py-3 rounded-full font-semibold hover:bg-neutral-200 transition-colors"
-                      >
-                        <Download className="w-5 h-5" />
-                        Unduh PDF
-                      </a>
-                    </>
-                  ) : (
-                    <>
-                      <h3 className="text-2xl font-bold text-white mb-2">Detail Karya</h3>
-                      <p className="text-neutral-400 text-sm mb-6">Dipublikasikan pada {new Date().toLocaleDateString('id-ID', { month: 'long', year: 'numeric' })}</p>
-                      
-                      <div className="space-y-4 text-neutral-300">
-                        <p>
-                          Ini adalah deskripsi detail untuk karya portofolio yang dipilih. Konten ini dirancang khusus untuk memaksimalkan interaksi (engagement) dan menyampaikan pesan brand dengan cara yang visual dan menarik.
-                        </p>
-                        <p>
-                          <strong>Strategi:</strong> Menggunakan palet warna yang konsisten dengan identitas brand, dipadukan dengan copywriting yang memancing rasa ingin tahu audiens.
-                        </p>
-                        <div className="pt-4 mt-4 border-t border-neutral-800">
-                          <h4 className="text-white font-medium mb-2">Hasil (Metrics):</h4>
-                          <ul className="list-disc list-inside text-sm text-neutral-400 space-y-1">
-                            <li>Peningkatan Reach sebesar 45%</li>
-                            <li>Engagement Rate: 8.2%</li>
-                            <li>+120 Pengikut Baru</li>
-                          </ul>
-                        </div>
-                      </div>
-                    </>
-                  )}
-                </div>
+                {/* Description Container - ONLY FOR PDF */}
+                {selectedImage.endsWith('.pdf') && (
+                  <div className="w-full md:w-2/5 p-6 md:p-8 flex flex-col overflow-y-auto">
+                    <h3 className="text-2xl font-bold text-white mb-2">Curriculum Vitae</h3>
+                    <p className="text-neutral-400 text-sm mb-6">ATS Friendly CV</p>
+                    
+                    <div className="space-y-4 text-neutral-300 flex-grow">
+                      <p>
+                        Ini adalah pratinjau dari Curriculum Vitae (CV) saya yang dirancang khusus agar ramah terhadap sistem ATS (Applicant Tracking System).
+                      </p>
+                      <p>
+                        Silakan unduh file PDF aslinya untuk melihat detail lengkap pengalaman, pendidikan, dan keterampilan saya.
+                      </p>
+                    </div>
+                    
+                    <a 
+                      href={selectedImage}
+                      download
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-6 flex items-center justify-center gap-2 bg-white text-black px-6 py-3 rounded-full font-semibold hover:bg-neutral-200 transition-colors"
+                    >
+                      <Download className="w-5 h-5" />
+                      Unduh PDF
+                    </a>
+                  </div>
+                )}
               </div>
             </motion.div>
           </motion.div>
