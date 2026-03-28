@@ -525,10 +525,10 @@ export default function App() {
                 </motion.div>
                 {/* Item Illustration 2 */}
                 <motion.div variants={itemVariants} className="relative aspect-square bg-black/40 backdrop-blur-md border border-white/5 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
-                  <img src="https://github.com/user-attachments/assets/fdfd2ddf-b4d0-4ee6-a077-41fd8caa2c93" alt="Illustration 2" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
+                  <img src="https://github.com/user-attachments/assets/50e9c5fd-129d-4c5d-b02d-d00a0ea2fe7b" alt="Illustration 2" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
                     <button 
-                      onClick={() => setSelectedImage("https://github.com/user-attachments/assets/fdfd2ddf-b4d0-4ee6-a077-41fd8caa2c93")}
+                      onClick={() => setSelectedImage("https://github.com/user-attachments/assets/50e9c5fd-129d-4c5d-b02d-d00a0ea2fe7b")}
                       className="text-white font-medium border border-white/30 px-6 py-2 rounded-full backdrop-blur-sm hover:bg-white/10 transition-colors"
                     >
                       Lihat Detail
@@ -566,8 +566,7 @@ export default function App() {
                   "https://github.com/user-attachments/assets/b0bb146c-878a-4822-a8c6-c3894907cdb8",
                   "https://github.com/user-attachments/assets/aafe1f14-0ead-4271-9ab4-6a4fe0422c1e",
                   "https://github.com/user-attachments/assets/484a0947-2efb-4d84-95f5-8640243b1f17",
-                  "https://github.com/user-attachments/assets/bb21a3e2-003b-43f5-88d9-a421e1711f38",
-                  "https://github.com/user-attachments/assets/c0007ec5-2ab1-498e-a990-c2529a068755"
+                  "https://github.com/user-attachments/assets/bb21a3e2-003b-43f5-88d9-a421e1711f38"
                 ].map((src, index) => (
                   <motion.div 
                     key={index}
