@@ -65,6 +65,15 @@ export default function App() {
   const [dimensions, setDimensions] = useState({ width: 1920, height: 1080 });
   const [mounted, setMounted] = useState(false);
 
+  const { scrollY } = useScroll();
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    return scrollY.on('change', (latest) => {
+      setIsScrolled(latest > window.innerHeight * 0.5);
+    });
+  }, [scrollY]);
+
   useEffect(() => {
     setMounted(true);
     const update = () =>
@@ -104,8 +113,22 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-neutral-200 font-sans selection:bg-neutral-800 overflow-hidden">
+    <div className="min-h-screen text-neutral-200 font-sans selection:bg-neutral-800 overflow-hidden relative">
       <CustomCursor />
+      
+      {/* Video Background */}
+      <div className="fixed inset-0 w-full h-full overflow-hidden -z-50 pointer-events-none">
+        <iframe
+          src="https://www.youtube.com/embed/OB3Ddoq1EsE?autoplay=1&mute=1&loop=1&playlist=OB3Ddoq1EsE&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1"
+          className="absolute top-1/2 left-1/2 w-[100vw] h-[56.25vw] min-h-[100vh] min-w-[177.77vh] -translate-x-1/2 -translate-y-1/2 opacity-80"
+          style={{ border: 0 }}
+          allow="autoplay; encrypted-media"
+          allowFullScreen
+        ></iframe>
+        {/* Overlay */}
+        <div className={`absolute inset-0 transition-colors duration-1000 ${isScrolled ? 'bg-black/85' : 'bg-black/40'}`}></div>
+      </div>
+
       {/* HEADER / NAVIGASI */}
       <header className="container mx-auto px-6 py-8 flex justify-between items-center">
         <div className="text-xl font-bold tracking-tighter text-white">PatraaPorto</div>
@@ -123,23 +146,6 @@ export default function App() {
           isHero={true}
           className="container mx-auto px-6 py-24 md:py-32 flex flex-col items-center text-center relative"
         >
-          {/* Abstract Background Elements */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full pointer-events-none -z-10 opacity-60 overflow-hidden rounded-full blur-[60px] md:blur-[100px] max-w-4xl max-h-[600px]">
-            {mounted && (
-              <MeshGradient
-                width={dimensions.width}
-                height={dimensions.height}
-                colors={["#1e3a8a", "#0e7490", "#3730a3", "#172554", "#083344", "#312e81"]}
-                distortion={0.8}
-                swirl={0.6}
-                grainMixer={0}
-                grainOverlay={0}
-                speed={0.42}
-                offsetX={0.08}
-              />
-            )}
-          </div>
-
           {/* Headline Utama dengan Animasi Glow */}
           <h1 className="relative text-4xl sm:text-6xl md:text-8xl lg:text-[10rem] font-bold tracking-tight text-white max-w-5xl leading-tight mb-10 flex justify-center gap-x-1 md:gap-x-2 whitespace-nowrap">
             {"PORTOFOLIO".split("").map((char, index) => (
@@ -173,14 +179,14 @@ export default function App() {
           id="about" 
           className="container mx-auto px-6 py-24"
         >
-          <div className="bg-neutral-900 rounded-[3rem] p-8 md:p-16 flex flex-col md:flex-row items-center gap-12 transition-all duration-500 hover:shadow-[0_10px_40px_rgba(255,255,255,0.03)]">
+          <div className="bg-black/40 backdrop-blur-xl border border-white/5 rounded-[3rem] p-8 md:p-16 flex flex-col md:flex-row items-center gap-12 transition-all duration-500 hover:shadow-[0_10px_40px_rgba(255,255,255,0.03)]">
             {/* Foto Profil */}
             <div className="w-full md:w-2/5 flex justify-center">
-              <div className="relative w-64 md:w-80 aspect-[3/4] rounded-[2rem] p-1 group overflow-hidden bg-neutral-900">
+              <div className="relative w-64 md:w-80 aspect-[3/4] rounded-[2rem] p-1 group overflow-hidden bg-black/40 backdrop-blur-md">
                 {/* Animasi Bayangan Biru Berputar (Stroke) */}
                 <div className="absolute inset-[-100%] bg-[conic-gradient(from_90deg_at_50%_50%,#00000000_50%,#3b82f6_100%)] animate-[spin_4s_linear_infinite] opacity-70 group-hover:opacity-100 transition-opacity duration-500"></div>
                 {/* Kontainer Foto */}
-                <div className="relative w-full h-full rounded-[calc(2rem-4px)] overflow-hidden z-10 bg-neutral-900">
+                <div className="relative w-full h-full rounded-[calc(2rem-4px)] overflow-hidden z-10 bg-black/40 backdrop-blur-md">
                   {/* GANTI URL FOTO PROFIL DI SINI */}
                   <img src="https://github.com/user-attachments/assets/d3f95128-beec-43d4-90ff-fb80474ade00" alt="Foto Profil" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" referrerPolicy="no-referrer" />
                 </div>
@@ -195,15 +201,15 @@ export default function App() {
               </p>
               
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div className="bg-neutral-950 p-5 rounded-2xl border border-neutral-800/50">
+                <div className="bg-black/40 backdrop-blur-md p-5 rounded-2xl border border-white/10">
                   <span className="block text-sm text-neutral-500 mb-1">Nama</span>
                   <span className="text-white font-medium">Moh. Alif Fadhilah Patrayasa</span>
                 </div>
-                <div className="bg-neutral-950 p-5 rounded-2xl border border-neutral-800/50">
+                <div className="bg-black/40 backdrop-blur-md p-5 rounded-2xl border border-white/10">
                   <span className="block text-sm text-neutral-500 mb-1">Lokasi</span>
                   <span className="text-white font-medium">Surabaya, Indonesia</span>
                 </div>
-                <div className="bg-neutral-950 p-5 rounded-2xl border border-neutral-800/50 relative group overflow-hidden cursor-pointer transition-all duration-300 hover:border-white/30">
+                <div className="bg-black/40 backdrop-blur-md p-5 rounded-2xl border border-white/10 relative group overflow-hidden cursor-pointer transition-all duration-300 hover:border-white/30">
                   <div className="group-hover:opacity-0 transition-opacity duration-300">
                     <span className="block text-sm text-neutral-500 mb-1">ATS CV</span>
                     <span className="text-white font-medium">View CV</span>
@@ -237,19 +243,19 @@ export default function App() {
           <div className="flex flex-wrap justify-center gap-4 mb-12">
             <button 
               onClick={() => setActiveTab('feed')} 
-              className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 ${activeTab === 'feed' ? 'bg-white text-black shadow-[0_0_20px_rgba(255,255,255,0.3)] scale-105' : 'bg-neutral-900 text-neutral-400 hover:bg-neutral-800 hover:text-white animate-border-pulse'}`}
+              className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 ${activeTab === 'feed' ? 'bg-white text-black shadow-[0_0_20px_rgba(255,255,255,0.3)] scale-105' : 'bg-black/40 backdrop-blur-md text-neutral-400 hover:bg-white/10 hover:text-white animate-border-pulse'}`}
             >
               Instagram Feed
             </button>
             <button 
               onClick={() => setActiveTab('story')} 
-              className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 ${activeTab === 'story' ? 'bg-white text-black shadow-[0_0_20px_rgba(255,255,255,0.3)] scale-105' : 'bg-neutral-900 text-neutral-400 hover:bg-neutral-800 hover:text-white animate-border-pulse'}`}
+              className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 ${activeTab === 'story' ? 'bg-white text-black shadow-[0_0_20px_rgba(255,255,255,0.3)] scale-105' : 'bg-black/40 backdrop-blur-md text-neutral-400 hover:bg-white/10 hover:text-white animate-border-pulse'}`}
             >
               Illustration
             </button>
             <button 
               onClick={() => setActiveTab('photography')} 
-              className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 ${activeTab === 'photography' ? 'bg-white text-black shadow-[0_0_20px_rgba(255,255,255,0.3)] scale-105' : 'bg-neutral-900 text-neutral-400 hover:bg-neutral-800 hover:text-white animate-border-pulse'}`}
+              className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 ${activeTab === 'photography' ? 'bg-white text-black shadow-[0_0_20px_rgba(255,255,255,0.3)] scale-105' : 'bg-black/40 backdrop-blur-md text-neutral-400 hover:bg-white/10 hover:text-white animate-border-pulse'}`}
             >
               Photography
             </button>
@@ -279,7 +285,7 @@ export default function App() {
                 className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
               >
                 {/* Item Feed 1 */}
-                <motion.div variants={itemVariants} className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                <motion.div variants={itemVariants} className="relative aspect-square bg-black/40 backdrop-blur-md border border-white/5 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
                   <img src="https://github.com/user-attachments/assets/11602d5f-1a9f-432c-a4d8-d16281e593ed" alt="Instagram Feed 1" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
                     <button 
@@ -291,7 +297,7 @@ export default function App() {
                   </div>
                 </motion.div>
                 {/* Item Feed 2 */}
-                <motion.div variants={itemVariants} className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                <motion.div variants={itemVariants} className="relative aspect-square bg-black/40 backdrop-blur-md border border-white/5 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
                   <img src="https://github.com/user-attachments/assets/eb64479a-2b44-4c04-bf5c-02ad69aec404" alt="Instagram Feed 2" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
                     <button 
@@ -303,7 +309,7 @@ export default function App() {
                   </div>
                 </motion.div>
                 {/* Item Feed 3 */}
-                <motion.div variants={itemVariants} className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                <motion.div variants={itemVariants} className="relative aspect-square bg-black/40 backdrop-blur-md border border-white/5 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
                   <img src="https://github.com/user-attachments/assets/04f1beb8-f0ab-492f-8aa3-37dfa9bd5f2e" alt="Instagram Feed 3" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
                     <button 
@@ -315,7 +321,7 @@ export default function App() {
                   </div>
                 </motion.div>
                 {/* Item Feed 4 */}
-                <motion.div variants={itemVariants} className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                <motion.div variants={itemVariants} className="relative aspect-square bg-black/40 backdrop-blur-md border border-white/5 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
                   <img src="https://github.com/user-attachments/assets/1278588d-d430-4c95-b129-7b737ea8c9e6" alt="Instagram Feed 4" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
                     <button 
@@ -327,7 +333,7 @@ export default function App() {
                   </div>
                 </motion.div>
                 {/* Item Feed 5 */}
-                <motion.div variants={itemVariants} className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                <motion.div variants={itemVariants} className="relative aspect-square bg-black/40 backdrop-blur-md border border-white/5 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
                   <img src="https://github.com/user-attachments/assets/f48a8c18-0a54-4d1e-89a8-12f24ebd69fe" alt="Instagram Feed 5" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
                     <button 
@@ -339,7 +345,7 @@ export default function App() {
                   </div>
                 </motion.div>
                 {/* Item Feed 6 */}
-                <motion.div variants={itemVariants} className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                <motion.div variants={itemVariants} className="relative aspect-square bg-black/40 backdrop-blur-md border border-white/5 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
                   <img src="https://github.com/user-attachments/assets/aa832a85-f3c2-4614-bc2d-81cb56b45842" alt="Instagram Feed 6" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
                     <button 
@@ -351,7 +357,7 @@ export default function App() {
                   </div>
                 </motion.div>
                 {/* Item Feed 7 */}
-                <motion.div variants={itemVariants} className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                <motion.div variants={itemVariants} className="relative aspect-square bg-black/40 backdrop-blur-md border border-white/5 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
                   <img src="https://github.com/user-attachments/assets/55f0c320-8d1a-45fc-87b8-b89393404f13" alt="Instagram Feed 7" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
                     <button 
@@ -363,7 +369,7 @@ export default function App() {
                   </div>
                 </motion.div>
                 {/* Item Feed 8 */}
-                <motion.div variants={itemVariants} className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                <motion.div variants={itemVariants} className="relative aspect-square bg-black/40 backdrop-blur-md border border-white/5 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
                   <img src="https://github.com/user-attachments/assets/44439303-372b-42fe-b7e0-ef860d4943e6" alt="Instagram Feed 8" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
                     <button 
@@ -375,7 +381,7 @@ export default function App() {
                   </div>
                 </motion.div>
                 {/* Item Feed 9 */}
-                <motion.div variants={itemVariants} className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                <motion.div variants={itemVariants} className="relative aspect-square bg-black/40 backdrop-blur-md border border-white/5 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
                   <img src="https://github.com/user-attachments/assets/6f506d73-1cfb-4e9f-a5e2-bfda95293b15" alt="Instagram Feed 9" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
                     <button 
@@ -387,7 +393,7 @@ export default function App() {
                   </div>
                 </motion.div>
                 {/* Item Feed 10 */}
-                <motion.div variants={itemVariants} className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                <motion.div variants={itemVariants} className="relative aspect-square bg-black/40 backdrop-blur-md border border-white/5 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
                   <img src="https://github.com/user-attachments/assets/eba64013-c88b-4478-a2fd-5a48d238358e" alt="Instagram Feed 10" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
                     <button 
@@ -399,7 +405,7 @@ export default function App() {
                   </div>
                 </motion.div>
                 {/* Item Feed 11 */}
-                <motion.div variants={itemVariants} className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                <motion.div variants={itemVariants} className="relative aspect-square bg-black/40 backdrop-blur-md border border-white/5 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
                   <img src="https://github.com/user-attachments/assets/3232cf91-74a7-42cf-aaeb-4462d055291b" alt="Instagram Feed 11" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
                     <button 
@@ -411,7 +417,7 @@ export default function App() {
                   </div>
                 </motion.div>
                 {/* Item Feed 12 */}
-                <motion.div variants={itemVariants} className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                <motion.div variants={itemVariants} className="relative aspect-square bg-black/40 backdrop-blur-md border border-white/5 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
                   <img src="https://github.com/user-attachments/assets/38d92df9-d79c-48af-995d-2c2b0d98c0e3" alt="Instagram Feed 12" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
                     <button 
@@ -423,7 +429,7 @@ export default function App() {
                   </div>
                 </motion.div>
                 {/* Item Feed 13 */}
-                <motion.div variants={itemVariants} className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                <motion.div variants={itemVariants} className="relative aspect-square bg-black/40 backdrop-blur-md border border-white/5 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
                   <img src="https://github.com/user-attachments/assets/7c367776-8c50-46db-af36-84b6fa037042" alt="Instagram Feed 13" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
                     <button 
@@ -435,7 +441,7 @@ export default function App() {
                   </div>
                 </motion.div>
                 {/* Item Feed 14 */}
-                <motion.div variants={itemVariants} className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                <motion.div variants={itemVariants} className="relative aspect-square bg-black/40 backdrop-blur-md border border-white/5 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
                   <img src="https://github.com/user-attachments/assets/a66436d3-193e-4dbf-86f1-860daf356de9" alt="Instagram Feed 14" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
                     <button 
@@ -447,7 +453,7 @@ export default function App() {
                   </div>
                 </motion.div>
                 {/* Item Feed 15 */}
-                <motion.div variants={itemVariants} className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                <motion.div variants={itemVariants} className="relative aspect-square bg-black/40 backdrop-blur-md border border-white/5 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
                   <img src="https://github.com/user-attachments/assets/6e00867f-7b6a-4817-abd6-10cfbec53dea" alt="Instagram Feed 15" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
                     <button 
@@ -459,7 +465,7 @@ export default function App() {
                   </div>
                 </motion.div>
                 {/* Item Feed 16 */}
-                <motion.div variants={itemVariants} className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                <motion.div variants={itemVariants} className="relative aspect-square bg-black/40 backdrop-blur-md border border-white/5 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
                   <img src="https://github.com/user-attachments/assets/3ccaa8a9-c051-4d6a-98e7-74e7a30c1aae" alt="Instagram Feed 16" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
                     <button 
@@ -471,7 +477,7 @@ export default function App() {
                   </div>
                 </motion.div>
                 {/* Item Feed 17 */}
-                <motion.div variants={itemVariants} className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                <motion.div variants={itemVariants} className="relative aspect-square bg-black/40 backdrop-blur-md border border-white/5 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
                   <img src="https://github.com/user-attachments/assets/858ad571-e412-476e-943a-fe0806d250a5" alt="Instagram Feed 17" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
                     <button 
@@ -483,7 +489,7 @@ export default function App() {
                   </div>
                 </motion.div>
                 {/* Item Feed 18 */}
-                <motion.div variants={itemVariants} className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                <motion.div variants={itemVariants} className="relative aspect-square bg-black/40 backdrop-blur-md border border-white/5 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
                   <img src="https://github.com/user-attachments/assets/eda523b3-17e1-4cd8-9d1e-3efc9c1b98cb" alt="Instagram Feed 18" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
                     <button 
@@ -506,7 +512,7 @@ export default function App() {
                 className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
               >
                 {/* Item Illustration 1 */}
-                <motion.div variants={itemVariants} className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                <motion.div variants={itemVariants} className="relative aspect-square bg-black/40 backdrop-blur-md border border-white/5 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
                   <img src="https://github.com/user-attachments/assets/2010d1a5-2047-47fd-a111-f28657bcce3e" alt="Illustration 1" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
                     <button 
@@ -518,7 +524,7 @@ export default function App() {
                   </div>
                 </motion.div>
                 {/* Item Illustration 2 */}
-                <motion.div variants={itemVariants} className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                <motion.div variants={itemVariants} className="relative aspect-square bg-black/40 backdrop-blur-md border border-white/5 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
                   <img src="https://github.com/user-attachments/assets/fdfd2ddf-b4d0-4ee6-a077-41fd8caa2c93" alt="Illustration 2" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
                     <button 
@@ -530,7 +536,7 @@ export default function App() {
                   </div>
                 </motion.div>
                 {/* Item Illustration 3 */}
-                <motion.div variants={itemVariants} className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                <motion.div variants={itemVariants} className="relative aspect-square bg-black/40 backdrop-blur-md border border-white/5 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
                   <img src="https://github.com/user-attachments/assets/2503af51-159f-40af-b46d-4642dd2f6d52" alt="Illustration 3" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" referrerPolicy="no-referrer" />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
                     <button 
@@ -553,20 +559,20 @@ export default function App() {
                 className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
               >
                 {[
-                  "https://github.com/user-attachments/assets/39f6426b-d0b8-4a06-90ce-24a7bfb8830e",
-                  "https://github.com/user-attachments/assets/958bf8ba-167a-427f-8c01-b6fe0c08426b",
-                  "https://github.com/user-attachments/assets/8fa9f0e5-9dc1-4488-86e3-dc66690904f0",
-                  "https://github.com/user-attachments/assets/9dfc714e-4249-4dd5-abb0-b77927cc725c",
-                  "https://github.com/user-attachments/assets/d7df3f8c-13f7-4cff-8a7d-ca489a1c8836",
-                  "https://github.com/user-attachments/assets/341f59ad-9d22-44a4-af13-19cc6555f0e5",
-                  "https://github.com/user-attachments/assets/2fbb76b6-f6b4-412b-ab51-a597db95e2c4",
-                  "https://github.com/user-attachments/assets/89d576e0-9a06-42b6-955c-a79b0468739b",
-                  "https://github.com/user-attachments/assets/84c3032d-adb1-4079-9cc8-2fafd04140c1"
+                  "https://github.com/user-attachments/assets/48ef64b2-81e3-4841-b459-1517a447e597",
+                  "https://github.com/user-attachments/assets/8976d726-177e-4f5d-ad58-82a5d8e0ba23",
+                  "https://github.com/user-attachments/assets/f630137c-e4cc-4c78-b336-45177e6a03a3",
+                  "https://github.com/user-attachments/assets/38d5e369-be4b-4677-987d-8f3c2a5349c1",
+                  "https://github.com/user-attachments/assets/b0bb146c-878a-4822-a8c6-c3894907cdb8",
+                  "https://github.com/user-attachments/assets/aafe1f14-0ead-4271-9ab4-6a4fe0422c1e",
+                  "https://github.com/user-attachments/assets/484a0947-2efb-4d84-95f5-8640243b1f17",
+                  "https://github.com/user-attachments/assets/bb21a3e2-003b-43f5-88d9-a421e1711f38",
+                  "https://github.com/user-attachments/assets/c0007ec5-2ab1-498e-a990-c2529a068755"
                 ].map((src, index) => (
                   <motion.div 
                     key={index}
                     variants={itemVariants} 
-                    className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]"
+                    className="relative aspect-square bg-black/40 backdrop-blur-md border border-white/5 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]"
                     onClick={() => setSelectedImage(src)}
                   >
                     <img src={src} alt={`Photography ${index + 1}`} loading="lazy" referrerPolicy="no-referrer" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500 group-hover:scale-105" />
@@ -581,7 +587,7 @@ export default function App() {
         {/* SERVICES / SKILLS SECTION (MARQUEE STYLE) */}
         <ParallaxSection 
           id="services" 
-          className="py-24 overflow-hidden bg-neutral-950"
+          className="py-24 overflow-hidden"
         >
           <div className="mb-16 md:text-center container mx-auto px-6">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Keahlian & Layanan</h2>
@@ -589,7 +595,7 @@ export default function App() {
           </div>
 
           {/* Looping Marquee */}
-          <div className="relative flex overflow-x-hidden w-full whitespace-nowrap py-10 border-y border-neutral-900 bg-neutral-950/50">
+          <div className="relative flex overflow-x-hidden w-full whitespace-nowrap py-10 border-y border-neutral-800/50 bg-black/30 backdrop-blur-sm">
             <div className="animate-marquee flex gap-16 items-center px-8">
               {/* Set 1 */}
               <span className="text-5xl md:text-6xl font-light text-neutral-300">Content Strategy</span>
@@ -690,7 +696,7 @@ export default function App() {
               animate={{ scale: 1, rotateX: 0, y: 0, opacity: 1 }}
               exit={{ scale: 0.8, rotateX: -20, y: 50, opacity: 0 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="relative max-w-4xl w-full max-h-[90vh] bg-neutral-900 rounded-3xl overflow-hidden shadow-2xl"
+              className="relative max-w-4xl w-full max-h-[90vh] bg-black/40 backdrop-blur-md border border-white/5 rounded-3xl overflow-hidden shadow-2xl"
               style={{ transformStyle: "preserve-3d", perspective: "1000px" }}
               onClick={(e) => e.stopPropagation()}
             >

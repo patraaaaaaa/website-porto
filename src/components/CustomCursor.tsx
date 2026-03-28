@@ -23,9 +23,9 @@ export default function CustomCursor() {
     let circleY = mouseY;
     let isHovering = false;
 
-    // Set transisi CSS hanya untuk efek hover (glow & background), BUKAN untuk transform (posisi)
+    // Set transisi CSS hanya untuk efek hover (background), BUKAN untuk transform (posisi)
     if (circleRef.current) {
-      circleRef.current.style.transition = 'box-shadow 0.3s ease, background-color 0.3s ease';
+      circleRef.current.style.transition = 'background-color 0.3s ease';
     }
 
     const onMouseMove = (e: MouseEvent) => {
@@ -55,12 +55,10 @@ export default function CustomCursor() {
       if (circleRef.current) {
         // Logika Hover Effect
         const scale = isHovering ? 1.5 : 1;
-        const glow = isHovering ? '0 0 15px rgba(255,255,255,0.4)' : 'none';
         const bg = isHovering ? 'rgba(255,255,255,0.1)' : 'transparent';
         
         // Aplikasikan posisi dan skala
         circleRef.current.style.transform = `translate3d(${circleX}px, ${circleY}px, 0) translate(-50%, -50%) scale(${scale})`;
-        circleRef.current.style.boxShadow = glow;
         circleRef.current.style.backgroundColor = bg;
       }
 
