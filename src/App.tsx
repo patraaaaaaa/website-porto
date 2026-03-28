@@ -248,10 +248,10 @@ export default function App() {
               Illustration
             </button>
             <button 
-              onClick={() => setActiveTab('reels')} 
-              className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 ${activeTab === 'reels' ? 'bg-white text-black shadow-[0_0_20px_rgba(255,255,255,0.3)] scale-105' : 'bg-neutral-900 text-neutral-400 hover:bg-neutral-800 hover:text-white animate-border-pulse'}`}
+              onClick={() => setActiveTab('photography')} 
+              className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 ${activeTab === 'photography' ? 'bg-white text-black shadow-[0_0_20px_rgba(255,255,255,0.3)] scale-105' : 'bg-neutral-900 text-neutral-400 hover:bg-neutral-800 hover:text-white animate-border-pulse'}`}
             >
-              Instagram Reels
+              Photography
             </button>
           </div>
 
@@ -544,40 +544,34 @@ export default function App() {
               </motion.div>
             )}
 
-            {/* KATEGORI 3: INSTAGRAM REELS */}
-            {activeTab === 'reels' && (
+            {/* KATEGORI 3: PHOTOGRAPHY */}
+            {activeTab === 'photography' && (
               <motion.div 
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"
-                className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6"
+                className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
               >
-                {/* Item Reels 1 */}
-                <motion.div 
-                  variants={itemVariants} 
-                  className="relative aspect-[9/16] bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]"
-                  onClick={() => setSelectedImage("https://picsum.photos/seed/reels1/720/1280")}
-                >
-                  <img src="https://picsum.photos/seed/reels1/720/1280" alt="Instagram Reels 1" className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-500" referrerPolicy="no-referrer" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-16 h-16 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center group-hover:bg-white/30 transition-colors duration-300 group-hover:scale-110">
-                      <Play className="w-8 h-8 text-white fill-white ml-1" />
-                    </div>
-                  </div>
-                </motion.div>
-                {/* Item Reels 2 */}
-                <motion.div 
-                  variants={itemVariants} 
-                  className="relative aspect-[9/16] bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]"
-                  onClick={() => setSelectedImage("https://picsum.photos/seed/reels2/720/1280")}
-                >
-                  <img src="https://picsum.photos/seed/reels2/720/1280" alt="Instagram Reels 2" className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-500" referrerPolicy="no-referrer" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-16 h-16 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center group-hover:bg-white/30 transition-colors duration-300 group-hover:scale-110">
-                      <Play className="w-8 h-8 text-white fill-white ml-1" />
-                    </div>
-                  </div>
-                </motion.div>
+                {[
+                  "https://github.com/user-attachments/assets/39f6426b-d0b8-4a06-90ce-24a7bfb8830e",
+                  "https://github.com/user-attachments/assets/958bf8ba-167a-427f-8c01-b6fe0c08426b",
+                  "https://github.com/user-attachments/assets/8fa9f0e5-9dc1-4488-86e3-dc66690904f0",
+                  "https://github.com/user-attachments/assets/9dfc714e-4249-4dd5-abb0-b77927cc725c",
+                  "https://github.com/user-attachments/assets/d7df3f8c-13f7-4cff-8a7d-ca489a1c8836",
+                  "https://github.com/user-attachments/assets/341f59ad-9d22-44a4-af13-19cc6555f0e5",
+                  "https://github.com/user-attachments/assets/2fbb76b6-f6b4-412b-ab51-a597db95e2c4",
+                  "https://github.com/user-attachments/assets/89d576e0-9a06-42b6-955c-a79b0468739b",
+                  "https://github.com/user-attachments/assets/84c3032d-adb1-4079-9cc8-2fafd04140c1"
+                ].map((src, index) => (
+                  <motion.div 
+                    key={index}
+                    variants={itemVariants} 
+                    className="relative aspect-square bg-neutral-900 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]"
+                    onClick={() => setSelectedImage(src)}
+                  >
+                    <img src={src} alt={`Photography ${index + 1}`} loading="lazy" referrerPolicy="no-referrer" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500 group-hover:scale-105" />
+                  </motion.div>
+                ))}
               </motion.div>
             )}
             </div>
