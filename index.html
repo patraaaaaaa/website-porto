@@ -145,14 +145,16 @@
     </div>
 
     <!-- Header -->
-    <header class="container mx-auto px-6 py-8 flex justify-between items-center relative z-40">
-        <div class="text-xl font-bold tracking-tighter text-white">Portofolio</div>
-        <nav class="hidden md:flex gap-6 text-sm font-medium text-neutral-400">
-            <a href="#about" class="hover:text-white transition-colors">Tentang Saya</a>
-            <a href="#portfolio" class="hover:text-white transition-colors">Karya</a>
-            <a href="#services" class="hover:text-white transition-colors">Layanan</a>
-            <a href="#contact" class="hover:text-white transition-colors">Kontak</a>
-        </nav>
+    <header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-8 px-6">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="text-xl font-bold tracking-tighter text-white">Portofolio</div>
+            <nav class="hidden md:flex gap-6 text-sm font-medium text-neutral-400">
+                <a href="#about" class="hover:text-white transition-colors">Tentang Saya</a>
+                <a href="#portfolio" class="hover:text-white transition-colors">Karya</a>
+                <a href="#services" class="hover:text-white transition-colors">Layanan</a>
+                <a href="#contact" class="hover:text-white transition-colors">Kontak</a>
+            </nav>
+        </div>
     </header>
 
     <main>
@@ -820,9 +822,20 @@
             renderCursor();
         }
 
-        // Scroll Video Overlay Logic
+        // Scroll Logic for Video Overlay and Navbar
         const videoOverlay = document.getElementById('video-overlay');
+        const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
+            // Navbar effect
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-black/80', 'backdrop-blur-md', 'py-4', 'border-b', 'border-white/10');
+                navbar.classList.remove('py-8');
+            } else {
+                navbar.classList.remove('bg-black/80', 'backdrop-blur-md', 'py-4', 'border-b', 'border-white/10');
+                navbar.classList.add('py-8');
+            }
+
+            // Video overlay effect
             if (window.scrollY > 100) {
                 videoOverlay.classList.remove('bg-black/40');
                 videoOverlay.classList.add('bg-black/85');
