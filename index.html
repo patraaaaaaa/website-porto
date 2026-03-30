@@ -39,6 +39,25 @@
             scrollbar-width: none;
         }
 
+        /* Hero Text Animation */
+        @keyframes text-gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .animate-text-gradient {
+            background-size: 200% auto;
+            animation: text-gradient 4s linear infinite;
+        }
+        
+        @keyframes float-text {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .animate-float-text {
+            animation: float-text 3s ease-in-out infinite;
+        }
+
         /* Custom Cursor */
         @media (pointer: fine) {
             * { cursor: none !important; }
@@ -127,7 +146,7 @@
 
     <!-- Header -->
     <header class="container mx-auto px-6 py-8 flex justify-between items-center relative z-40">
-        <div class="text-xl font-bold tracking-tighter text-white">PatraaPorto</div>
+        <div class="text-xl font-bold tracking-tighter text-white">Portofolio</div>
         <nav class="hidden md:flex gap-6 text-sm font-medium text-neutral-400">
             <a href="#about" class="hover:text-white transition-colors">Tentang Saya</a>
             <a href="#portfolio" class="hover:text-white transition-colors">Karya</a>
@@ -139,10 +158,8 @@
     <main>
         <!-- Hero Section -->
         <section class="container mx-auto px-6 py-24 md:py-32 flex flex-col items-center text-center relative z-10 min-h-[80vh] justify-center">
-            <h1 class="relative text-4xl sm:text-6xl md:text-8xl lg:text-[10rem] font-bold tracking-tight text-white max-w-5xl leading-tight mb-10 flex flex-wrap justify-center gap-x-2 md:gap-x-4">
-                <span class="inline-block hover:text-neutral-300 transition-colors duration-300 cursor-default">Kreatif.</span>
-                <span class="inline-block hover:text-neutral-300 transition-colors duration-300 cursor-default">Inovatif.</span>
-                <span class="inline-block hover:text-neutral-300 transition-colors duration-300 cursor-default">Estetik.</span>
+            <h1 class="relative text-5xl sm:text-7xl md:text-8xl lg:text-[10rem] font-bold tracking-tighter max-w-5xl leading-tight mb-10 flex flex-wrap justify-center gap-x-2 md:gap-x-4">
+                <span class="inline-block animate-float-text cursor-default drop-shadow-[0_0_25px_rgba(255,255,255,0.4)] text-white hover:scale-105 transition-transform duration-500">Patraaporto.</span>
             </h1>
             <p class="text-lg md:text-2xl text-neutral-400 max-w-2xl mb-12 font-light leading-relaxed">
                 Menghidupkan ide melalui desain visual yang memukau dan pengalaman digital yang tak terlupakan.
@@ -516,6 +533,114 @@
       </div>
     </div>
   
+    <div class="relative aspect-square bg-black/40 backdrop-blur-md border border-white/5 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]" onclick="openModal('https://github.com/user-attachments/assets/a9a1f373-589a-48c6-b499-39b1c4100a24')">
+      <img src="https://wsrv.nl/?url=https%3A%2F%2Fgithub.com%2Fuser-attachments%2Fassets%2Fa9a1f373-589a-48c6-b499-39b1c4100a24&w=600&q=75&output=webp" alt="Photography 10" loading="lazy" referrerpolicy="no-referrer" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500 group-hover:scale-105" />
+      <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
+        <button class="text-white font-medium border border-white/30 px-6 py-2 rounded-full backdrop-blur-sm hover:bg-white/10 transition-colors">
+          Lihat Detail
+        </button>
+      </div>
+    </div>
+
+    <div class="relative aspect-square bg-black/40 backdrop-blur-md border border-white/5 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]" onclick="openModal('https://github.com/user-attachments/assets/f11e8758-c089-4568-83b9-6f3f73523210')">
+      <img src="https://wsrv.nl/?url=https%3A%2F%2Fgithub.com%2Fuser-attachments%2Fassets%2Ff11e8758-c089-4568-83b9-6f3f73523210&w=600&q=75&output=webp" alt="Photography 11" loading="lazy" referrerpolicy="no-referrer" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500 group-hover:scale-105" />
+      <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
+        <button class="text-white font-medium border border-white/30 px-6 py-2 rounded-full backdrop-blur-sm hover:bg-white/10 transition-colors">
+          Lihat Detail
+        </button>
+      </div>
+    </div>
+
+    <div class="relative aspect-square bg-black/40 backdrop-blur-md border border-white/5 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]" onclick="openModal('https://github.com/user-attachments/assets/0de52c67-8695-453e-970f-bb9e5831479f')">
+      <img src="https://wsrv.nl/?url=https%3A%2F%2Fgithub.com%2Fuser-attachments%2Fassets%2F0de52c67-8695-453e-970f-bb9e5831479f&w=600&q=75&output=webp" alt="Photography 12" loading="lazy" referrerpolicy="no-referrer" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500 group-hover:scale-105" />
+      <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
+        <button class="text-white font-medium border border-white/30 px-6 py-2 rounded-full backdrop-blur-sm hover:bg-white/10 transition-colors">
+          Lihat Detail
+        </button>
+      </div>
+    </div>
+
+    <div class="relative aspect-square bg-black/40 backdrop-blur-md border border-white/5 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]" onclick="openModal('https://github.com/user-attachments/assets/0c7874f6-fe40-4dd6-aedb-ac7fd24cf07e')">
+      <img src="https://wsrv.nl/?url=https%3A%2F%2Fgithub.com%2Fuser-attachments%2Fassets%2F0c7874f6-fe40-4dd6-aedb-ac7fd24cf07e&w=600&q=75&output=webp" alt="Photography 13" loading="lazy" referrerpolicy="no-referrer" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500 group-hover:scale-105" />
+      <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
+        <button class="text-white font-medium border border-white/30 px-6 py-2 rounded-full backdrop-blur-sm hover:bg-white/10 transition-colors">
+          Lihat Detail
+        </button>
+      </div>
+    </div>
+
+    <div class="relative aspect-square bg-black/40 backdrop-blur-md border border-white/5 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]" onclick="openModal('https://github.com/user-attachments/assets/e54328f5-50b0-41b3-b65d-1434854ba0ee')">
+      <img src="https://wsrv.nl/?url=https%3A%2F%2Fgithub.com%2Fuser-attachments%2Fassets%2Fe54328f5-50b0-41b3-b65d-1434854ba0ee&w=600&q=75&output=webp" alt="Photography 14" loading="lazy" referrerpolicy="no-referrer" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500 group-hover:scale-105" />
+      <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
+        <button class="text-white font-medium border border-white/30 px-6 py-2 rounded-full backdrop-blur-sm hover:bg-white/10 transition-colors">
+          Lihat Detail
+        </button>
+      </div>
+    </div>
+
+    <div class="relative aspect-square bg-black/40 backdrop-blur-md border border-white/5 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]" onclick="openModal('https://github.com/user-attachments/assets/dfbc3ed5-65b5-48f8-9227-75639068ca04')">
+      <img src="https://wsrv.nl/?url=https%3A%2F%2Fgithub.com%2Fuser-attachments%2Fassets%2Fdfbc3ed5-65b5-48f8-9227-75639068ca04&w=600&q=75&output=webp" alt="Photography 15" loading="lazy" referrerpolicy="no-referrer" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500 group-hover:scale-105" />
+      <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
+        <button class="text-white font-medium border border-white/30 px-6 py-2 rounded-full backdrop-blur-sm hover:bg-white/10 transition-colors">
+          Lihat Detail
+        </button>
+      </div>
+    </div>
+
+    <div class="relative aspect-square bg-black/40 backdrop-blur-md border border-white/5 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]" onclick="openModal('https://github.com/user-attachments/assets/4db8fab4-e4c5-4fd1-b31a-8587a85da9c3')">
+      <img src="https://wsrv.nl/?url=https%3A%2F%2Fgithub.com%2Fuser-attachments%2Fassets%2F4db8fab4-e4c5-4fd1-b31a-8587a85da9c3&w=600&q=75&output=webp" alt="Photography 16" loading="lazy" referrerpolicy="no-referrer" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500 group-hover:scale-105" />
+      <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
+        <button class="text-white font-medium border border-white/30 px-6 py-2 rounded-full backdrop-blur-sm hover:bg-white/10 transition-colors">
+          Lihat Detail
+        </button>
+      </div>
+    </div>
+
+    <div class="relative aspect-square bg-black/40 backdrop-blur-md border border-white/5 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]" onclick="openModal('https://github.com/user-attachments/assets/4872b2da-442f-4aca-8ddb-a826f41adf19')">
+      <img src="https://wsrv.nl/?url=https%3A%2F%2Fgithub.com%2Fuser-attachments%2Fassets%2F4872b2da-442f-4aca-8ddb-a826f41adf19&w=600&q=75&output=webp" alt="Photography 17" loading="lazy" referrerpolicy="no-referrer" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500 group-hover:scale-105" />
+      <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
+        <button class="text-white font-medium border border-white/30 px-6 py-2 rounded-full backdrop-blur-sm hover:bg-white/10 transition-colors">
+          Lihat Detail
+        </button>
+      </div>
+    </div>
+
+    <div class="relative aspect-square bg-black/40 backdrop-blur-md border border-white/5 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]" onclick="openModal('https://github.com/user-attachments/assets/a58c2a01-70e7-40e7-bf0c-3c2c039eaa68')">
+      <img src="https://wsrv.nl/?url=https%3A%2F%2Fgithub.com%2Fuser-attachments%2Fassets%2Fa58c2a01-70e7-40e7-bf0c-3c2c039eaa68&w=600&q=75&output=webp" alt="Photography 18" loading="lazy" referrerpolicy="no-referrer" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500 group-hover:scale-105" />
+      <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
+        <button class="text-white font-medium border border-white/30 px-6 py-2 rounded-full backdrop-blur-sm hover:bg-white/10 transition-colors">
+          Lihat Detail
+        </button>
+      </div>
+    </div>
+
+    <div class="relative aspect-square bg-black/40 backdrop-blur-md border border-white/5 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]" onclick="openModal('https://github.com/user-attachments/assets/a4ae5af8-7701-448f-b0f7-40e9929e90a6')">
+      <img src="https://wsrv.nl/?url=https%3A%2F%2Fgithub.com%2Fuser-attachments%2Fassets%2Fa4ae5af8-7701-448f-b0f7-40e9929e90a6&w=600&q=75&output=webp" alt="Photography 19" loading="lazy" referrerpolicy="no-referrer" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500 group-hover:scale-105" />
+      <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
+        <button class="text-white font-medium border border-white/30 px-6 py-2 rounded-full backdrop-blur-sm hover:bg-white/10 transition-colors">
+          Lihat Detail
+        </button>
+      </div>
+    </div>
+
+    <div class="relative aspect-square bg-black/40 backdrop-blur-md border border-white/5 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]" onclick="openModal('https://github.com/user-attachments/assets/4445bc5a-bf0c-44d9-8cb5-475860430254')">
+      <img src="https://wsrv.nl/?url=https%3A%2F%2Fgithub.com%2Fuser-attachments%2Fassets%2F4445bc5a-bf0c-44d9-8cb5-475860430254&w=600&q=75&output=webp" alt="Photography 20" loading="lazy" referrerpolicy="no-referrer" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500 group-hover:scale-105" />
+      <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
+        <button class="text-white font-medium border border-white/30 px-6 py-2 rounded-full backdrop-blur-sm hover:bg-white/10 transition-colors">
+          Lihat Detail
+        </button>
+      </div>
+    </div>
+
+    <div class="relative aspect-square bg-black/40 backdrop-blur-md border border-white/5 rounded-[2rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]" onclick="openModal('https://github.com/user-attachments/assets/01163aae-0c79-4ed4-9394-fb65a8146832')">
+      <img src="https://wsrv.nl/?url=https%3A%2F%2Fgithub.com%2Fuser-attachments%2Fassets%2F01163aae-0c79-4ed4-9394-fb65a8146832&w=600&q=75&output=webp" alt="Photography 21" loading="lazy" referrerpolicy="no-referrer" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500 group-hover:scale-105" />
+      <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
+        <button class="text-white font-medium border border-white/30 px-6 py-2 rounded-full backdrop-blur-sm hover:bg-white/10 transition-colors">
+          Lihat Detail
+        </button>
+      </div>
+    </div>
+  
                         </div>
 
                     </div>
@@ -733,6 +858,8 @@
             
             let innerHtml = '';
             if (isPdf) {
+                modalContent.classList.add('glass-panel', 'shadow-2xl');
+                modalContent.classList.remove('bg-transparent', 'shadow-none');
                 innerHtml = `
                     <div class="w-full md:w-3/5 bg-black flex items-center justify-center overflow-hidden">
                         <iframe src="https://docs.google.com/viewer?url=${encodeURIComponent(src)}&embedded=true" class="w-full h-full min-h-[50vh] md:min-h-[90vh]" title="PDF Viewer"></iframe>
@@ -751,9 +878,11 @@
                     </div>
                 `;
             } else {
+                modalContent.classList.remove('glass-panel', 'shadow-2xl');
+                modalContent.classList.add('bg-transparent', 'shadow-none');
                 innerHtml = `
-                    <div class="w-full bg-black flex items-center justify-center overflow-hidden p-4">
-                        <img src="${src}" alt="Detail" class="w-full h-full object-contain max-h-[85vh] rounded-xl" referrerpolicy="no-referrer" />
+                    <div class="w-full flex items-center justify-center overflow-hidden">
+                        <img src="${src}" alt="Detail" class="w-full h-full object-contain max-h-[90vh] rounded-2xl shadow-2xl" referrerpolicy="no-referrer" />
                     </div>
                 `;
             }
